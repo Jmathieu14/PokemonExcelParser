@@ -1,9 +1,9 @@
-import data.get_sets
-from data.set_model import PokemonSet
+import data.functions.pokemon_set_list_functions
+from data.models.pokemon_set_model import PokemonSet
 
 
 def main():
-    my_sets = data.get_sets.get_sets()
+    my_sets = data.functions.pokemon_set_list_functions.get_sets()
     PokemonSet.print_list(my_sets)
 
 
