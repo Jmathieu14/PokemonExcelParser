@@ -1,17 +1,12 @@
 import unittest
 
-from data.models.pokemon_excel_sheet_model import PokemonSetSheetException, PokemonSetSheet
+from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from data.models.pokemon_set_model import PokemonSet
 
 
 class TestPokemonSetSheet(unittest.TestCase):
-    def test_exception_thrown_for_invalid_pokemon_set_input(self):
-        with self.assertRaises(PokemonSetSheetException):
-            PokemonSetSheet('some invalid pokemon set...', '', 'file_path')
-
-    def test_exception_thrown_for_invalid_excel_sheet_input(self):
-        with self.assertRaises(PokemonSetSheetException):
-            PokemonSetSheet(PokemonSet('my_abbr', 'my_name', 'my_series'), 'invalid sheet', 'file_path')
+    def test_something(self):
+        assert(True == False)
 
 
 def get_suite():
