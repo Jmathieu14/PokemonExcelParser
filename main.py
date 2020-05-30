@@ -1,6 +1,6 @@
+from data.functions.pokemon_set_list_functions import get_sets, find_set_in_sets
 from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from data.models.pokemon_set_model import PokemonSet
-from data.functions.pokemon_set_list_functions import get_sets, find_set_in_sets
 
 
 def main():

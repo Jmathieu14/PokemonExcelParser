@@ -1,16 +1,20 @@
-
-
 class PokemonSet:
-    def __init__(self, abbreviation, name, series):
+    def __init__(self, abbreviation, name, series, set_code):
         self.abbreviation = abbreviation
         self.name = name
         self.series = series
+        self.set_code = set_code
 
     def json_to_pokemon_set(json_object):
-        return PokemonSet(json_object['abbreviation'], json_object['name'], json_object['series'])
+        return PokemonSet(json_object['abbreviation'], json_object['name'], json_object['series'],
+                          json_object['set_code'])
 
     def to_str(self):
-        return "['abbr': '{0}', 'name': '{1}', 'series': '{2}']".format(self.abbreviation, self.name, self.series)
+        return "['abbr': '{0}', 'name': '{1}', 'series': '{2}', 'set_code': '{3}']".format(
+            self.abbreviation,
+            self.name,
+            self.series,
+            self.set_code)
 
     def print(self):
         print(self.to_str())
