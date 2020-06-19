@@ -9,11 +9,11 @@ def main():
     my_set = find_set_in_sets('RCL', my_sets)
     excel_file_path = 'C:\\Users\\User\\OneDrive\\Pokemon TCG Cards Owned.xlsx'
     my_pokemon_sheet = PokemonSetSheet.create(my_set, excel_file_path)
-    print(my_pokemon_sheet.excel_sheet_object)
-    col_ct = my_pokemon_sheet.excel_sheet_object.ncols
+    print(my_pokemon_sheet.excel_sheet)
+    col_ct = my_pokemon_sheet.excel_sheet.ncols
     print('column count: ' + str(col_ct))
     for i in range(0, col_ct):
-        print('column name: ' + str(my_pokemon_sheet.excel_sheet_object.col(i)[0].value))
+        print('column name: ' + str(my_pokemon_sheet.excel_sheet.col(i)[0].value))
 
 
 if __name__ == '__main__':

@@ -1,7 +1,8 @@
-from itertools import count
-
 from data.models.pokemon_set_model import PokemonSet
 import excelrd
+import openpyxl
+from openpyxl import worksheet
+from openpyxl import workbook
 
 
 class PokeColumn:
@@ -17,45 +18,58 @@ class PokeColumn:
 
 
 def _get_poke_columns_config():
-    return [PokeColumn('Card #', 1),
-            PokeColumn('4 Owned', 2),
-            PokeColumn('Name', 0),
-            PokeColumn('Rarity', 3)]
+    return [PokeColumn('Card #', 2),
+            PokeColumn('4 Owned', 3),
+            PokeColumn('Name', 1),
+            PokeColumn('Rarity', 4)]
 
 
-def _get_excel_sheet_from_file_by_set(pokemon_set: PokemonSet, file_path: str) -> excelrd.sheet.Sheet:
-    workbook = excelrd.open_workbook(file_path)
-    return workbook.sheet_by_name(pokemon_set.abbreviation)
+def _get_excel_workbook_from_file(pokemon_set: PokemonSet, file_path: str) -> workbook:
+    return openpyxl.load_workbook(file_path)
 
 
 class PokemonSetSheet:
-    def __init__(self, pokemon_set: PokemonSet, excel_sheet_object: excelrd.sheet.Sheet, file_path: str):
+    def __init__(self, pokemon_set: PokemonSet, excel_workbook: workbook, excel_sheet: worksheet, file_path: str):
         self.pokemon_set = pokemon_set
-        self.excel_sheet_object = excel_sheet_object
+        self.excel_workbook: openpyxl.workbook = excel_workbook
+        self.excel_sheet: worksheet = excel_sheet
         self.file_path = file_path
         # List of type PokeColumn
-        self.columns = []
-        self.configure_columns()
 
     def is_poke_column_in_columns(self, poke_column: PokeColumn):
-        for col in self.columns:
-            if poke_column.equals(col):
+        for i in range(1, self.excel_sheet.max_column + 1):
+            my_column = PokeColumn(self.excel_sheet.cell(row=1, column=i).value, i)
+            if poke_column.equals(my_column):
                 return True
         return False
 
-    def insert_missing_columns(self):
-        pass
+    def is_column_empty(self, column_index):
+        for i in range(2, self.excel_sheet.max_row + 1):
+            if self.excel_sheet.cell(row=i, column=column_index).value is not None:
+                return False
+        return True
 
-    def reorder_columns(self):
-        excel_columns = self.excel_sheet_object.col
+    def insert_column(self, poke_column: PokeColumn):
+        # check if cells below header of column have values
+        if not self.is_column_empty(poke_column.index):
+            # if not and the poke_column being inserted has a diff name, move the existing column to end of column list
+            print('not empty! ')
+        else:
+            print('before - ' + str(self.excel_sheet.cell(row=1, column=poke_column.index).value))
+            self.excel_sheet.cell(row=1, column=poke_column.index).value = poke_column.name
+            print('after - ' + str(self.excel_sheet.cell(row=1, column=poke_column.index).value))
 
-    def configure_columns(self):
-        if self.excel_sheet_object is not None:
-            excel_columns_count = self.excel_sheet_object.ncols
-            for i in range(0, self.excel_sheet_object.ncols):
-                col_name = self.excel_sheet_object.col(i)[0].value
-                self.columns.append(PokeColumn(col_name, i))
+    def _insert_columns_if_missing(self):
+        column_config = _get_poke_columns_config()
+        for i in range(0, column_config.__len__()):
+            my_col: PokeColumn = column_config[i]
+            if not self.is_poke_column_in_columns(my_col):
+                self.insert_column(my_col)
+
+    def save(self):
+        self.excel_workbook.save(self.file_path)
 
     def create(pokemon_set: PokemonSet, file_path: str):
-        excel_sheet_object = _get_excel_sheet_from_file_by_set(pokemon_set, file_path)
-        return PokemonSetSheet(pokemon_set, excel_sheet_object, file_path)
+        excel_workbook = _get_excel_workbook_from_file(pokemon_set, file_path)
+        excel_sheet = excel_workbook.get_sheet_by_name(pokemon_set.abbreviation)
+        return PokemonSetSheet(pokemon_set, excel_workbook, excel_sheet, file_path)
