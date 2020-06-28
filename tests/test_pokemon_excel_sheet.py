@@ -28,16 +28,32 @@ class TestPokemonSetSheet(unittest.TestCase):
         assert my_set_sheet.is_poke_column_in_columns(PokeColumn('4 Owned', 2))
         assert my_set_sheet.is_poke_column_in_columns(PokeColumn('CardZ #99 bloppp', 40)) is False
 
-    def test_should_insert_columns_if_missing(self):
-        shutil.copy2('tests/data/test_pokemon_excel_sheet.xlsx', 'tests/data/test_pokemon_excel_sheet_copy.xlsx')
-        my_set_sheet = PokemonSetSheet.create(test_pokemon_set, 'tests/data/test_pokemon_excel_sheet_copy.xlsx')
-        my_set_sheet._insert_columns_if_missing()
-        poke_column_config = _get_poke_columns_config()
-        col_config_length = poke_column_config.__len__()
-        for i in range(0, col_config_length):
-            assert my_set_sheet.is_poke_column_in_columns(poke_column_config[i])
+    def test_move_existing_columns_out_of_way(self):
+        shutil.copy2('tests/data/test_pokemon_excel_sheet.xlsx', 'tests/data'
+                                                                 '/test_pokemon_excel_sheet_move_existing_away.xlsx')
+        my_set_sheet = PokemonSetSheet.create(test_pokemon_set, 'tests/data'
+                                                                '/test_pokemon_excel_sheet_move_existing_away.xlsx')
+        my_set_sheet.move_existing_columns_out_of_way()
+        poke_column_config_size = _get_poke_columns_config().__len__()
+        expected_columns = [PokeColumn('Card #', 1 + poke_column_config_size),
+                            PokeColumn('4 Owned', 2 + poke_column_config_size)]
+
+        for i in range(poke_column_config_size + 1, poke_column_config_size + 1 + expected_columns.__len__()):
+            expected_columns_index = i - 1 - poke_column_config_size
+            assert my_set_sheet.is_poke_column_in_columns(expected_columns[expected_columns_index])
         my_set_sheet.save()
-        os.remove('tests/data/test_pokemon_excel_sheet_copy.xlsx')
+        os.remove('tests/data/test_pokemon_excel_sheet_move_existing_away.xlsx')
+
+    # def test_should_insert_columns_if_missing(self):
+    #     shutil.copy2('tests/data/test_pokemon_excel_sheet.xlsx', 'tests/data/test_pokemon_excel_sheet_copy.xlsx')
+    #     my_set_sheet = PokemonSetSheet.create(test_pokemon_set, 'tests/data/test_pokemon_excel_sheet_copy.xlsx')
+    #     my_set_sheet._insert_columns_if_missing()
+    #     poke_column_config = _get_poke_columns_config()
+    #     col_config_length = poke_column_config.__len__()
+    #     for i in range(0, col_config_length):
+    #         assert my_set_sheet.is_poke_column_in_columns(poke_column_config[i])
+    #     my_set_sheet.save()
+    #     os.remove('tests/data/test_pokemon_excel_sheet_copy.xlsx')
 
     def test_should_have_correct_values(self):
         my_set_sheet = PokemonSetSheet.create(test_pokemon_set, 'tests/data/test_pokemon_excel_sheet.xlsx')
