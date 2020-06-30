@@ -5,9 +5,10 @@ import os
 
 from data.models.pokemon_excel_sheet_model import PokeColumn
 from data.models.pokemon_excel_sheet_model import PokemonSetSheet
-from data.models.pokemon_excel_sheet_model import _get_poke_columns_config
+from data.models.pokemon_excel_sheet_model import get_poke_columns_config
 from data.models.pokemon_set_model import PokemonSet
 from tests.functions.get_pokemon_test_set import get_pokemon_test_set
+import data.models.pokemon_excel_sheet_model as pokemon_excel_sheet_model
 
 base_pokemon_sheet_model_import = 'data.models.pokemon_excel_sheet_model'
 get_excel_sheet_import = base_pokemon_sheet_model_import + '._get_excel_workbook_from_file'
@@ -16,6 +17,12 @@ test_pokemon_set = get_pokemon_test_set()
 
 
 class TestPokemonSetSheet(unittest.TestCase):
+
+    def setUp(self):
+        pokemon_excel_sheet_model.DEBUG_MODE = True
+
+    def test_debug_mode_on(self):
+        assert pokemon_excel_sheet_model.DEBUG_MODE
 
     @mock.patch(get_excel_sheet_import)
     def test_create_should_call_get_excel_workbook_from_file(self, mock_get_excel_workbook_from_file):
@@ -34,26 +41,28 @@ class TestPokemonSetSheet(unittest.TestCase):
         my_set_sheet = PokemonSetSheet.create(test_pokemon_set, 'tests/data'
                                                                 '/test_pokemon_excel_sheet_move_existing_away.xlsx')
         my_set_sheet.move_existing_columns_out_of_way()
-        poke_column_config_size = _get_poke_columns_config().__len__()
-        expected_columns = [PokeColumn('Card #', 1 + poke_column_config_size),
-                            PokeColumn('4 Owned', 2 + poke_column_config_size)]
+        poke_column_config_size = get_poke_columns_config().__len__()
+        expected_columns = [PokeColumn('Card #', 3 + poke_column_config_size),
+                            PokeColumn('4 Owned', 4 + poke_column_config_size)]
 
-        for i in range(poke_column_config_size + 1, poke_column_config_size + 1 + expected_columns.__len__()):
-            expected_columns_index = i - 1 - poke_column_config_size
+        for i in range(poke_column_config_size + 3, poke_column_config_size + 3 + expected_columns.__len__()):
+            expected_columns_index = i - 3 - poke_column_config_size
             assert my_set_sheet.is_poke_column_in_columns(expected_columns[expected_columns_index])
         my_set_sheet.save()
         os.remove('tests/data/test_pokemon_excel_sheet_move_existing_away.xlsx')
 
-    # def test_should_insert_columns_if_missing(self):
-    #     shutil.copy2('tests/data/test_pokemon_excel_sheet.xlsx', 'tests/data/test_pokemon_excel_sheet_copy.xlsx')
-    #     my_set_sheet = PokemonSetSheet.create(test_pokemon_set, 'tests/data/test_pokemon_excel_sheet_copy.xlsx')
-    #     my_set_sheet._insert_columns_if_missing()
-    #     poke_column_config = _get_poke_columns_config()
-    #     col_config_length = poke_column_config.__len__()
-    #     for i in range(0, col_config_length):
-    #         assert my_set_sheet.is_poke_column_in_columns(poke_column_config[i])
-    #     my_set_sheet.save()
-    #     os.remove('tests/data/test_pokemon_excel_sheet_copy.xlsx')
+    def test_move_existing_columns_to_proper_index(self):
+        shutil.copy2('tests/data/test_pokemon_excel_sheet.xlsx', 'tests/data/test_pokemon_excel_sheet_copy.xlsx')
+        my_set_sheet = PokemonSetSheet.create(test_pokemon_set, 'tests/data/test_pokemon_excel_sheet_copy.xlsx')
+        my_set_sheet.move_existing_columns_out_of_way()
+        my_set_sheet.move_existing_columns_to_proper_index()
+        poke_column_config = get_poke_columns_config()
+        col_config_length = poke_column_config.__len__()
+        for i in range(0, col_config_length):
+            if poke_column_config[i].name == "4 Owned" or poke_column_config[i].name == "Card #":
+                assert my_set_sheet.is_poke_column_in_columns(poke_column_config[i])
+        my_set_sheet.save()
+        os.remove('tests/data/test_pokemon_excel_sheet_copy.xlsx')
 
     def test_should_have_correct_values(self):
         my_set_sheet = PokemonSetSheet.create(test_pokemon_set, 'tests/data/test_pokemon_excel_sheet.xlsx')
