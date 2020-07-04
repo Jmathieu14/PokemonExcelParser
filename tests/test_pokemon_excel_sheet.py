@@ -3,7 +3,6 @@ import unittest.mock as mock
 import shutil
 import os
 
-from data.models.pokemon_excel_sheet_model import PokeColumn
 from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from data.models.pokemon_excel_sheet_model import get_poke_columns_config
 from data.models.pokemon_set_model import PokemonSet
