@@ -1,5 +1,4 @@
 from data.models.pokemon_set_model import PokemonSet
-import excelrd
 import openpyxl
 from openpyxl import worksheet
 from openpyxl import workbook
@@ -17,6 +16,11 @@ class PokeColumn:
 
     def equals(self, other_poke_column):
         return self.column_name_matches(other_poke_column) and self.index == other_poke_column.index
+
+    def __str__(self):
+        return "PokeColumn: ['name': '{0}', 'index': '{1}']".format(
+            self.name,
+            self.index)
 
 
 def get_poke_columns_config():
@@ -38,6 +42,7 @@ class PokemonSetSheet:
         self.file_path = file_path
         self.column_config = get_poke_columns_config()
         self.__column_offset__ = self.column_config.__len__() + self.excel_sheet.max_column
+        # Perform setup functions
         self.configure_columns()
 
     def _move_column_from_index_to_other_index(self, index, other_index):
@@ -75,20 +80,11 @@ class PokemonSetSheet:
             self.move_existing_columns_to_proper_index()
             self.insert_missing_columns()
 
-    def insert_column(self, poke_column: PokeColumn):
-        # check if cells below header of column have values
-        if not self.is_column_empty(poke_column.index):
-            # if not and the poke_column being inserted has a diff name, move the existing column to end of column list
-            print('not empty! ')
-            self.move_entire_column_from_index_to_end(poke_column.index)
-            # self.insert_column(poke_column)
-        else:
-            print('before - ' + str(self.excel_sheet.cell(row=1, column=poke_column.index).value))
-            self.excel_sheet.cell(row=1, column=poke_column.index).value = poke_column.name
-            print('after - ' + str(self.excel_sheet.cell(row=1, column=poke_column.index).value))
-
     def insert_missing_columns(self):
-        pass
+        for i in range(0, self.column_config.__len__()):
+            config_col: PokeColumn = self.column_config[i]
+            if not self.is_poke_column_in_columns(config_col):
+                self.excel_sheet.cell(row=1, column=config_col.index).value = config_col.name
 
     def move_existing_columns_to_proper_index(self):
         for i in range(0, self.column_config.__len__()):

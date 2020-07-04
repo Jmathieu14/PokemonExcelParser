@@ -31,9 +31,16 @@ class TestPokemonSetSheet(unittest.TestCase):
 
     def test_should_have_correct_poke_columns(self):
         my_set_sheet = PokemonSetSheet.create(test_pokemon_set, 'tests/data/test_pokemon_excel_sheet.xlsx')
-        assert my_set_sheet.is_poke_column_in_columns(PokeColumn('Card #', 1))
-        assert my_set_sheet.is_poke_column_in_columns(PokeColumn('4 Owned', 2))
+        assert_column_is_in_sheet(PokeColumn('Card #', 1), my_set_sheet)
+        assert_column_is_in_sheet(PokeColumn('4 Owned', 2), my_set_sheet)
         assert my_set_sheet.is_poke_column_in_columns(PokeColumn('CardZ #99 bloppp', 40)) is False
+
+    def test_should_have_correct_values(self):
+        my_set_sheet = PokemonSetSheet.create(test_pokemon_set, 'tests/data/test_pokemon_excel_sheet.xlsx')
+        col_1_expected_values = [1, 2, 3, 4]
+        col_2_expected_values = ['Yes', 'Yes', 'Yes', 'Yes']
+        assert_values_match_those_in_column(col_1_expected_values, 1, my_set_sheet)
+        assert_values_match_those_in_column(col_2_expected_values, 2, my_set_sheet)
 
     def test_move_existing_columns_out_of_way(self):
         shutil.copy2('tests/data/test_pokemon_excel_sheet.xlsx', 'tests/data'
@@ -48,7 +55,6 @@ class TestPokemonSetSheet(unittest.TestCase):
         for i in range(poke_column_config_size + 3, poke_column_config_size + 3 + expected_columns.__len__()):
             expected_columns_index = i - 3 - poke_column_config_size
             assert my_set_sheet.is_poke_column_in_columns(expected_columns[expected_columns_index])
-        my_set_sheet.save()
         os.remove('tests/data/test_pokemon_excel_sheet_move_existing_away.xlsx')
 
     def test_move_existing_columns_to_proper_index(self):
@@ -60,20 +66,46 @@ class TestPokemonSetSheet(unittest.TestCase):
         col_config_length = poke_column_config.__len__()
         for i in range(0, col_config_length):
             if poke_column_config[i].name == "4 Owned" or poke_column_config[i].name == "Card #":
-                assert my_set_sheet.is_poke_column_in_columns(poke_column_config[i])
-        my_set_sheet.save()
+                assert_column_is_in_sheet(poke_column_config[i], my_set_sheet)
         os.remove('tests/data/test_pokemon_excel_sheet_copy.xlsx')
 
-    def test_should_have_correct_values(self):
-        my_set_sheet = PokemonSetSheet.create(test_pokemon_set, 'tests/data/test_pokemon_excel_sheet.xlsx')
-        col_1_expected_values = [1, 2, 3, 4]
-        col_2_expected_values = ['Yes', 'Yes', 'Yes', 'Yes']
-        for i in range(2, 6):
-            assert my_set_sheet.excel_sheet.cell(row=i, column=1).value == col_1_expected_values[i - 2]
-            assert my_set_sheet.excel_sheet.cell(row=i, column=2).value == col_2_expected_values[i - 2]
+    def test_insert_missing_columns(self):
+        shutil.copy2('tests/data/test_insert_missing_columns.xlsx', 'tests/data/test_insert_missing_columns_copy.xlsx')
+        my_set_sheet = PokemonSetSheet.create(test_pokemon_set, 'tests/data/test_insert_missing_columns_copy.xlsx')
+        col_2_expected_values = [1, 2, 3, 4]
+        col_3_expected_values = ['Yes', 'Yes', 'Yes', 'Yes']
+        assert_values_match_those_in_column(col_2_expected_values, 2, my_set_sheet)
+        assert_values_match_those_in_column(col_3_expected_values, 3, my_set_sheet)
+        my_set_sheet.insert_missing_columns()
+        # Confirm columns with pre-existing values are unchanged
+        assert_values_match_those_in_column(col_2_expected_values, 2, my_set_sheet)
+        assert_values_match_those_in_column(col_3_expected_values, 3, my_set_sheet)
+        poke_column_config = get_poke_columns_config()
+        col_config_length = poke_column_config.__len__()
+        for i in range(0, col_config_length):
+            assert_column_is_in_sheet(poke_column_config[i], my_set_sheet)
+        os.remove('tests/data/test_insert_missing_columns_copy.xlsx')
 
     def test_get_missing_metadata_should_save_pokemon_names_to_sheet(self):
         pass
+
+
+def assert_values_match_those_in_column(values: [], column_index: int, poke_sheet: PokemonSetSheet):
+    values_length = values.__len__()
+    for i in range(2, values_length + 2):
+        poke_sheet_value = poke_sheet.excel_sheet.cell(row=i, column=column_index).value
+        if not poke_sheet_value == values[i - 2]:
+            print("\nThe value '{0}' at row {1}, column {2} does not match the expected cell value of '{3}'".format(
+                    poke_sheet_value,
+                    i, column_index,
+                    values[i - 2]))
+        assert poke_sheet_value == values[i - 2]
+
+
+def assert_column_is_in_sheet(poke_column: PokeColumn, poke_sheet: PokemonSetSheet):
+    if not poke_sheet.is_poke_column_in_columns(poke_column):
+        print('\n' + poke_column.__str__() + ' not found in given excel sheet')
+    assert poke_sheet.is_poke_column_in_columns(poke_column)
 
 
 def get_suite():
