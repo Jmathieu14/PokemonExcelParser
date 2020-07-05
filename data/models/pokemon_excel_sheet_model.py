@@ -26,7 +26,7 @@ class PokemonSetSheet:
         self.file_path = file_path
         self.column_config = get_poke_columns_config()
         self.__column_offset__ = self.column_config.__len__() + self.excel_sheet.max_column
-        # Perform setup functions
+        # Perform setup util
         self.configure_columns()
 
     def _move_column_from_index_to_other_index(self, index, other_index):

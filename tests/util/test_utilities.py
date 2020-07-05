@@ -7,3 +7,7 @@ import utility as util
 
 def get_pokemon_test_set():
     return PokemonSet.json_to_pokemon_set(util.file_to_json_obj('tests/data/test_set_abbreviations.json')[0])
+
+
+def excel_copy_path(path: str):
+    return path.split('.')[0] + '_copy.xlsx'
