@@ -7,7 +7,7 @@ from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from data.models.pokemon_excel_sheet_model import get_poke_columns_config
 from data.models.pokemon_set_model import PokemonSet
 from data.models.pokemon_column_model import PokeColumn
-from tests.util.test_utilities import get_pokemon_test_set, excel_copy_path
+from tests.util.test_utilities import get_pokemon_test_set, excel_copy_path, assert_values_match_those_in_column
 import data.models.pokemon_excel_sheet_model as pokemon_excel_sheet_model
 
 base_pokemon_sheet_model_import = 'data.models.pokemon_excel_sheet_model'
@@ -86,18 +86,6 @@ class TestPokemonSetSheet(unittest.TestCase):
         for i in range(0, col_config_length):
             assert_column_is_in_sheet(poke_column_config[i], my_set_sheet)
         os.remove(excel_copy_path(test_path))
-
-
-def assert_values_match_those_in_column(values: [], column_index: int, poke_sheet: PokemonSetSheet):
-    values_length = values.__len__()
-    for i in range(2, values_length + 2):
-        poke_sheet_value = poke_sheet.excel_sheet.cell(row=i, column=column_index).value
-        if not poke_sheet_value == values[i - 2]:
-            print("\nThe value '{0}' at row {1}, column {2} does not match the expected cell value of '{3}'".format(
-                    poke_sheet_value,
-                    i, column_index,
-                    values[i - 2]))
-        assert poke_sheet_value == values[i - 2]
 
 
 def assert_column_is_in_sheet(poke_column: PokeColumn, poke_sheet: PokemonSetSheet):

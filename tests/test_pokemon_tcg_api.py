@@ -4,13 +4,9 @@ from pokemontcgsdk import Card
 
 from retrieval.models.index_card_model import IndexCard
 from retrieval.models.index_cards_model import IndexCards
-from tests.util.test_utilities import get_pokemon_test_set
+from tests.util.test_utilities import get_pokemon_test_set, empty_index_card
 
 test_pokemon_set = get_pokemon_test_set()
-
-
-def empty_index_card():
-    return IndexCard(0, Card({}))
 
 
 class TestPokemonTcgApi(unittest.TestCase):
