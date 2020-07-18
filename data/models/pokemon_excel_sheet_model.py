@@ -38,6 +38,13 @@ class PokemonSetSheet:
         for j in range(1, self.excel_sheet.max_row + 1):
             self.excel_sheet.cell(row=j, column=other_index).value = values_to_move[j-1]
 
+    def _set_cell_value_at(self, value, row, column):
+        self.excel_sheet.cell(row=row, column=column).value = value
+
+    def _is_cell_empty_at(self, row, column):
+        cell_value: str = self.excel_sheet.cell(row=row, column=column).value
+        return cell_value is None or cell_value.strip() == ''
+
     def is_poke_column_in_columns(self, poke_column: PokeColumn):
         for i in range(1, self.excel_sheet.max_column + 1):
             my_column = PokeColumn(self.excel_sheet.cell(row=1, column=i).value, i)
@@ -45,7 +52,7 @@ class PokemonSetSheet:
                 return True
         return False
 
-    def get_index_of_column_with_name(self, column_name):
+    def get_column_index_with_name(self, column_name):
         for i in range(1, self.excel_sheet.max_column + 1):
             name_at_i = self.excel_sheet.cell(row=1, column=i).value
             if name_at_i == column_name:
@@ -73,7 +80,7 @@ class PokemonSetSheet:
     def move_existing_columns_to_proper_index(self):
         for i in range(0, self.column_config.__len__()):
             config_col: PokeColumn = self.column_config[i]
-            existing_col_index = self.get_index_of_column_with_name(config_col.name)
+            existing_col_index = self.get_column_index_with_name(config_col.name)
             if existing_col_index != -1:
                 self._move_column_from_index_to_other_index(existing_col_index, config_col.index)
 
@@ -82,6 +89,45 @@ class PokemonSetSheet:
         for i in range(1, last_column):
             if not self.is_column_empty(i):
                 self._move_column_from_index_to_other_index(i, i + self.__column_offset__)
+
+    def row_contains_empty_cells_under_columns_in_config(self, row_index: int, columns_to_exclude = []) -> bool:
+        for i in range(0, self.column_config.__len__()):
+            poke_column = self.column_config[i]
+            if poke_column.name not in columns_to_exclude and \
+                    self._is_cell_empty_at(row=row_index, column=poke_column.index):
+                return True
+        return False
+
+    def get_card_numbers_with_missing_data(self) -> []:
+        card_numbers_with_missing_data = []
+        card_number_column = self.get_column_index_with_name('Card #')
+        for i in range(2, self.excel_sheet.max_row + 1):
+            if self.row_contains_empty_cells_under_columns_in_config(i, ['Card #']):
+                card_numbers_with_missing_data.append(self.excel_sheet.cell(row=i, column=card_number_column).value)
+        return card_numbers_with_missing_data
+
+    def get_row_index_from_cell_value_and_column_index(self, cell_value, column_index: int) -> int:
+        for i in range(2, self.excel_sheet.max_row + 1):
+            existing_value = self.excel_sheet.cell(row=i, column=column_index).value
+            if existing_value == cell_value:
+                return i
+        return -1
+
+    def get_row_index_for_card_number(self, card_number) -> int:
+        card_number_column_index = self.get_column_index_with_name('Card #')
+        return self.get_row_index_from_cell_value_and_column_index(card_number, card_number_column_index)
+
+    def update_cell_with_card_number_and_column_name(self, value, card_number: int, column_name: str):
+        column_index = self.get_column_index_with_name(column_name)
+        row_index_for_card_number = self.get_row_index_for_card_number(card_number)
+        if row_index_for_card_number != -1:
+            self._set_cell_value_at(value=value, row=row_index_for_card_number, column=column_index)
+
+    def update_card_name_with_card_number(self, name: str, card_number: int):
+        self.update_cell_with_card_number_and_column_name(value=name, card_number=card_number, column_name='Name')
+
+    def update_rarity_with_card_number(self, rarity: str, card_number: int):
+        self.update_cell_with_card_number_and_column_name(value=rarity, card_number=card_number, column_name='Rarity')
 
     def save(self):
         self.excel_workbook.save(self.file_path)

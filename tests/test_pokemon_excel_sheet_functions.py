@@ -34,8 +34,19 @@ class TestPokemonSetSheetFunctions(unittest.TestCase):
         update_missing_pokemon_metadata(my_set_sheet)
         col_1_expected_values = ["Pikachu", "Raichu", "Pichu", "Jigglypuff"]
         col_4_expected_values = ["Common", "Uncommon", "Uncommon", "Common"]
-        # assert_values_match_those_in_column(col_1_expected_values, 1, my_set_sheet)
-        # assert_values_match_those_in_column(col_4_expected_values, 4, my_set_sheet)
+        assert_values_match_those_in_column(col_1_expected_values, 1, my_set_sheet)
+        assert_values_match_those_in_column(col_4_expected_values, 4, my_set_sheet)
+        os.remove(excel_copy_path(test_path))
+
+    @mock.patch('data.functions.pokemon_excel_sheet_functions.get_cards_from_database')
+    def test_update_missing_pokemon_metadata__calls_tcg_api_with_missing_card_numbers\
+                    (self, mock_get_cards_from_database):
+        test_path = 'tests/data/test_update_missing_metadata_v2.xlsx'
+        shutil.copy2(test_path, excel_copy_path(test_path))
+        my_set_sheet = PokemonSetSheet.create(test_pokemon_set, excel_copy_path(test_path))
+        update_missing_pokemon_metadata(my_set_sheet)
+        mock_get_cards_from_database.assert_called_once_with(test_pokemon_set, [1, 3, 4])
+        os.remove(excel_copy_path(test_path))
 
 
 def get_suite():

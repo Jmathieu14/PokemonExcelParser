@@ -22,7 +22,10 @@ def empty_index_card():
 
 
 def index_card(index: int, name: str, rarity: str):
-    return IndexCard(index, Card({name: name, rarity: rarity}))
+    card = Card()
+    card.name = name
+    card.rarity = rarity
+    return IndexCard(index, card)
 
 
 def assert_values_match_those_in_column(values: [], column_index: int, poke_sheet: PokemonSetSheet):

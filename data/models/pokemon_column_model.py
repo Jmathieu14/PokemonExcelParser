@@ -15,6 +15,6 @@ class PokeColumn:
         return self.column_name_matches(other_poke_column) and self.index == other_poke_column.index
 
     def __str__(self):
-        return "PokeColumn: ['name': '{0}', 'index': '{1}']".format(
+        return "PokeColumn: ['name': '{0}', 'card_number': '{1}']".format(
             self.name,
             self.index)
