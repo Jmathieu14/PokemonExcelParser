@@ -5,8 +5,10 @@ from pokemontcgsdk import Card
 
 from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from data.models.pokemon_set_model import PokemonSet
-import utility as util
 from retrieval.models.index_card_model import IndexCard
+
+from unittest.mock import Mock
+import utility as util
 
 
 def get_pokemon_test_set():
@@ -21,10 +23,11 @@ def empty_index_card():
     return IndexCard(0, Card({}))
 
 
-def index_card(index: int, name: str, rarity: str):
+def index_card(index: int, name: str, rarity: str, _type: str):
     card = Card()
     card.name = name
     card.rarity = rarity
+    card.types = [_type]
     return IndexCard(index, card)
 
 
@@ -38,3 +41,21 @@ def assert_values_match_those_in_column(values: [], column_index: int, poke_shee
                     i, column_index,
                     values[i - 2]))
         assert poke_sheet_value == values[i - 2]
+
+
+# Source 1 (see bottom)
+def assert_not_called_with(self, *args, **kwargs):
+    try:
+        self.assert_called_with(*args, **kwargs)
+    except AssertionError:
+        return
+    raise AssertionError('Expected %s to not have been called.' % self._format_mock_call_signature(args, kwargs))
+
+
+# Make sure to add the following line in your test files
+Mock.assert_not_called_with = assert_not_called_with
+
+
+# Source 1: credit for function definition goes to 'blhsing' for StackOverflow post:
+# www.stackoverflow.com/questions/54838354/python-how-can-i-assert-a-mock-object-was-not-called-with-specific-argument
+# User profile: https://stackoverflow.com/users/6890912/blhsing

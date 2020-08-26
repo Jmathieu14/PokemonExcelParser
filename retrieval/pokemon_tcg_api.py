@@ -8,11 +8,14 @@ from retrieval.models.index_cards_model import IndexCards
 
 
 def get_card_from_database(pokemon_set: PokemonSet, number: int) -> IndexCard:
-    return IndexCard(number, Card.find("{0}-{1}".format(pokemon_set.set_code, str(number))))
+    search_str = "{0}-{1}".format(pokemon_set.set_code, str(number))
+    print("Calling Pokemon TCG API with following search:")
+    print(search_str)
+    return IndexCard(number, Card.find(search_str))
 
 
 def get_cards_from_database(pokemon_set: PokemonSet, numbers: [int]) -> IndexCards:
     index_cards = IndexCards()
-    for number in range(0, numbers.__len__()):
-        index_cards.add_index_card(get_card_from_database(pokemon_set, number))
+    for index in range(0, numbers.__len__()):
+        index_cards.add_index_card(get_card_from_database(pokemon_set, numbers[index]))
     return index_cards

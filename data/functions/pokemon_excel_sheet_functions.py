@@ -15,5 +15,7 @@ def update_missing_pokemon_metadata(pokemon_set_sheet: PokemonSetSheet):
         card_index = index_card.index
         name = index_card.get_name()
         rarity = index_card.get_rarity()
+        _type = index_card.get_first_type()
         pokemon_set_sheet.update_card_name_with_card_number(name, card_index)
         pokemon_set_sheet.update_rarity_with_card_number(rarity, card_index)
+        pokemon_set_sheet.update_cell_with_card_number_and_column_name(_type, card_index, 'Type')

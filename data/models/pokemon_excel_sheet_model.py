@@ -11,7 +11,8 @@ def get_poke_columns_config():
     return [PokeColumn('Card #', 2),
             PokeColumn('4 Owned', 3),
             PokeColumn('Name', 1),
-            PokeColumn('Rarity', 4)]
+            PokeColumn('Rarity', 4),
+            PokeColumn('Type', 5)]
 
 
 def _get_excel_workbook_from_file(pokemon_set: PokemonSet, file_path: str) -> workbook:
@@ -101,8 +102,9 @@ class PokemonSetSheet:
     def get_card_numbers_with_missing_data(self) -> []:
         card_numbers_with_missing_data = []
         card_number_column = self.get_column_index_with_name('Card #')
+        columns_to_exclude = ['Card #', '4 Owned']
         for i in range(2, self.excel_sheet.max_row + 1):
-            if self.row_contains_empty_cells_under_columns_in_config(i, ['Card #']):
+            if self.row_contains_empty_cells_under_columns_in_config(i, columns_to_exclude):
                 card_numbers_with_missing_data.append(self.excel_sheet.cell(row=i, column=card_number_column).value)
         return card_numbers_with_missing_data
 
