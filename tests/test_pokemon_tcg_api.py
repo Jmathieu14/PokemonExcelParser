@@ -1,10 +1,10 @@
 import unittest
 import unittest.mock as mock
-from pokemontcgsdk import Card
 
 from retrieval.models.index_card_model import IndexCard
 from retrieval.models.index_cards_model import IndexCards
-from tests.util.test_utilities import get_pokemon_test_set, empty_index_card
+from retrieval.pokemon_tcg_api import get_set_card_count, get_set_info
+from tests.util.test_utilities import get_pokemon_test_set, empty_index_card, MockSet
 
 test_pokemon_set = get_pokemon_test_set()
 
@@ -24,6 +24,20 @@ class TestPokemonTcgApi(unittest.TestCase):
         value_returned = mock_get_cards_from_database(test_pokemon_set, card_numbers_for_lookup)
         assert type(value_returned) is IndexCards
         assert type(value_returned.cards[0]) is IndexCard
+
+    @mock.patch('retrieval.pokemon_tcg_api.get_set_info')
+    def test_get_set_card_count__should_call_get_set_info(self, mock_get_set_info):
+        get_set_card_count(get_pokemon_test_set())
+        mock_get_set_info.assert_called()
+
+    @mock.patch('pokemontcgsdk.Set.find')
+    def test_get_set_info__should_return_code_count_and_call_set_find(self, mock_set_find):
+        expected_info = {'code': 'my_code', 'total_cards': '900'}
+        mock_return_value = MockSet(expected_info['code'], expected_info['total_cards'])
+        mock_set_find.return_value = mock_return_value
+        actual_info = get_set_info(get_pokemon_test_set())
+        mock_set_find.assert_called_with(get_pokemon_test_set().set_code)
+        assert actual_info == expected_info
 
 
 def get_suite():

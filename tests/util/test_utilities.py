@@ -11,6 +11,13 @@ from unittest.mock import Mock
 import utility as util
 
 
+# Mock the pokemontcgsdk Set
+class MockSet:
+    def __init__(self, code, total_cards):
+        self.code = code
+        self.total_cards = total_cards
+
+
 def get_pokemon_test_set():
     return PokemonSet.json_to_pokemon_set(util.file_to_json_obj('tests/data/test_set_abbreviations.json')[0])
 
