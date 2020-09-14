@@ -5,6 +5,7 @@ from pokemontcgsdk import Card, Set
 from data.models.pokemon_set_model import PokemonSet
 from retrieval.models.index_card_model import IndexCard
 from retrieval.models.index_cards_model import IndexCards
+from retrieval.models.pokemon_set_info_response import PokemonSetInfoResponse
 
 
 def get_card_from_database(pokemon_set: PokemonSet, number: int) -> IndexCard:
@@ -25,13 +26,10 @@ def get_cards_not_in_list(pokemon_set: PokemonSet, numbers: [int]) -> IndexCards
     pass
 
 
-def get_set_info(pokemon_set: PokemonSet) -> {'code': str, 'total_cards': str}:
-    print('Retrieving set information for set: ' + pokemon_set.to_str())
+def get_set_info(pokemon_set: PokemonSet) -> PokemonSetInfoResponse:
+    print('Retrieving ptcgSet information for ptcgSet: ' + pokemon_set.to_str())
     found_set: Set = Set.find(pokemon_set.set_code)
-    info = {
-        'code': found_set.code,
-        'total_cards': str(found_set.total_cards)
-    }
+    info = PokemonSetInfoResponse(found_set)
     return info
 
 
