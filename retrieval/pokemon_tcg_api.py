@@ -23,7 +23,12 @@ def get_cards_from_database(pokemon_set: PokemonSet, numbers: [int]) -> IndexCar
 
 
 def get_cards_not_in_list(pokemon_set: PokemonSet, numbers: [int]) -> IndexCards:
-    pass
+    last_card_number = get_set_card_count(pokemon_set)
+    card_numbers_not_in_list = []
+    for x in range(1, last_card_number + 1):
+        if x not in numbers:
+            card_numbers_not_in_list.append(x)
+    return get_cards_from_database(pokemon_set, card_numbers_not_in_list)
 
 
 def get_set_info(pokemon_set: PokemonSet) -> PokemonSetInfoResponse:

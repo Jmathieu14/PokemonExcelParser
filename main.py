@@ -8,12 +8,12 @@ from utility import backup_excel_sheet_filename, remove_backup
 
 
 def main(argv):
-    update_excel_sheet()
+    update_excel_sheet('DAA')
 
 
-def update_excel_sheet():
+def update_excel_sheet(set_abbr):
     my_sets = get_sets()
-    my_set = find_set_in_sets('RCL', my_sets)
+    my_set = find_set_in_sets(set_abbr, my_sets)
     excel_file_path = 'C:\\Users\\User\\OneDrive\\Pokemon TCG Cards Owned.xlsx'
     # Remove previous back-up if existing
     remove_backup(excel_file_path)

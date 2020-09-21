@@ -15,7 +15,7 @@ def get_poke_columns_config():
             PokeColumn('Type', 5)]
 
 
-def _get_excel_workbook_from_file(pokemon_set: PokemonSet, file_path: str) -> workbook:
+def _get_excel_workbook_from_file(file_path: str) -> workbook:
     return openpyxl.load_workbook(file_path)
 
 
@@ -91,7 +91,9 @@ class PokemonSetSheet:
             if not self.is_column_empty(i):
                 self._move_column_from_index_to_other_index(i, i + self.__column_offset__)
 
-    def row_contains_empty_cells_under_columns_in_config(self, row_index: int, columns_to_exclude = []) -> bool:
+    def row_contains_empty_cells_under_columns_in_config(self, row_index: int, columns_to_exclude=None) -> bool:
+        if columns_to_exclude is None:
+            columns_to_exclude = []
         for i in range(0, self.column_config.__len__()):
             poke_column = self.column_config[i]
             if poke_column.name not in columns_to_exclude and \
@@ -119,6 +121,16 @@ class PokemonSetSheet:
         card_number_column_index = self.get_column_index_with_name('Card #')
         return self.get_row_index_from_cell_value_and_column_index(card_number, card_number_column_index)
 
+    def get_card_number_for_row_index(self, row_index):
+        card_number_column_index = self.get_column_index_with_name('Card #')
+        return self.excel_sheet.cell(row=row_index, column=card_number_column_index).value
+
+    def get_card_numbers_in_sheet(self):
+        numbers = []
+        for i in range(2, self.excel_sheet.max_row + 1):
+            numbers.append(self.get_card_number_for_row_index(i))
+        return numbers
+
     def update_cell_with_card_number_and_column_name(self, value, card_number: int, column_name: str):
         column_index = self.get_column_index_with_name(column_name)
         row_index_for_card_number = self.get_row_index_for_card_number(card_number)
@@ -131,10 +143,15 @@ class PokemonSetSheet:
     def update_rarity_with_card_number(self, rarity: str, card_number: int):
         self.update_cell_with_card_number_and_column_name(value=rarity, card_number=card_number, column_name='Rarity')
 
+    def insert_card_number(self, card_number):
+        last_row = self.excel_sheet.max_row
+        card_number_column_index = self.get_column_index_with_name('Card #')
+        self._set_cell_value_at(card_number, last_row + 1, card_number_column_index)
+
     def save(self):
         self.excel_workbook.save(self.file_path)
 
     def create(pokemon_set: PokemonSet, file_path: str):
-        excel_workbook = _get_excel_workbook_from_file(pokemon_set, file_path)
+        excel_workbook = _get_excel_workbook_from_file(file_path)
         excel_sheet = excel_workbook.get_sheet_by_name(pokemon_set.abbreviation)
         return PokemonSetSheet(pokemon_set, excel_workbook, excel_sheet, file_path)

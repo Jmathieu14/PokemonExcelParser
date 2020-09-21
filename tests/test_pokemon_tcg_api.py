@@ -1,10 +1,12 @@
 import unittest
 import unittest.mock as mock
 
+from unittest.mock import Mock
 from retrieval.models.index_card_model import IndexCard
 from retrieval.models.index_cards_model import IndexCards
-from retrieval.pokemon_tcg_api import get_set_card_count, get_set_info
-from tests.util.test_utilities import get_pokemon_test_set, empty_index_card, MockSet
+from retrieval.models.pokemon_set_info_response import PokemonSetInfoResponse
+from retrieval.pokemon_tcg_api import get_set_card_count, get_set_info, get_cards_not_in_list
+from tests.util.test_utilities import get_pokemon_test_set, empty_index_card, MockSet, makeDummySet
 
 test_pokemon_set = get_pokemon_test_set()
 
@@ -31,13 +33,20 @@ class TestPokemonTcgApi(unittest.TestCase):
         mock_get_set_info.assert_called()
 
     @mock.patch('pokemontcgsdk.Set.find')
-    def test_get_set_info__should_return_code_count_and_call_set_find(self, mock_set_find):
-        expected_info = {'code': 'my_code', 'total_cards': '900'}
-        mock_return_value = MockSet(expected_info['code'], expected_info['total_cards'])
+    def test_get_set_info__should_call_set_find(self, mock_set_find):
+        mock_return_value = PokemonSetInfoResponse(makeDummySet(1))
         mock_set_find.return_value = mock_return_value
-        actual_info = get_set_info(get_pokemon_test_set())
+        get_set_info(get_pokemon_test_set())
         mock_set_find.assert_called_with(get_pokemon_test_set().set_code)
-        assert actual_info == expected_info
+
+    @mock.patch('retrieval.pokemon_tcg_api.get_cards_from_database')
+    def test_get_cards_not_in_list__should_call_get_cards_from_database(self, mock_get_cards_from_database):
+        mock_get_set_card_count = mock.patch('retrieval.pokemon_tcg_api.get_set_card_count', return_value=5)
+        mock_get_set_card_count.start()
+        cards_in_list = [1, 2, 4]
+        expected_card_number_list = [3, 5]
+        get_cards_not_in_list(test_pokemon_set, cards_in_list)
+        mock_get_cards_from_database.assert_called_with(test_pokemon_set, expected_card_number_list)
 
 
 def get_suite():
