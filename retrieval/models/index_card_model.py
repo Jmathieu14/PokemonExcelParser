@@ -16,8 +16,10 @@ class IndexCard:
         return self.card.rarity
 
     def get_first_type(self):
-        first_type = self.card.types[0]
-        return first_type if first_type is not None else 'N/A'
+        first_type = 'N/A'
+        if self.card.types is not None:
+            first_type = self.card.types[0]
+        return first_type
 
     def __str__(self):
         return "IndexCard: [ index: {0}, name: {1}, rarity, {2} ]".format(
