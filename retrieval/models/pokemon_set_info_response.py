@@ -11,7 +11,12 @@ class PokemonSetInfoResponse:
         self.name = ptcg_set.name
         self.ptcgo_code = ptcg_set.ptcgo_code
         self.release_date = ptcg_set.release_date
+        self.series = ptcg_set.series
 
     def __str__(self):
-        return "['code': {0}, 'total_cards': {1}, 'name': {2}, 'ptcgo_code': {3}]"\
-                .format(self.code, self.total_cards, self.name, self.ptcgo_code)
+        return "{{\"set_code\": \"{0}\"," \
+               " \"total_cards\": \"{1}\"," \
+               " \"name\": \"{2}\"," \
+               " \"abbreviation\": \"{3}\"," \
+               " \"series\": \"{4}\"}}"\
+                .format(self.code, self.total_cards, self.name, self.ptcgo_code, self.series)

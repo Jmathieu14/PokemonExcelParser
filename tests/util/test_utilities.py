@@ -13,16 +13,17 @@ import utility as util
 
 # Mock the pokemontcgsdk Set
 class MockSet:
-    def __init__(self, code, total_cards: int, name, ptcgo_code, release_date):
+    def __init__(self, code, total_cards: int, name, ptcgo_code, release_date, series):
         self.code = code
         self.total_cards = total_cards
         self.name = name
         self.ptcgo_code = ptcgo_code
         self.release_date = release_date
+        self.series = series
 
 
 def makeDummySet(total_cards: int):
-    return MockSet('dummy', total_cards, 'dummy', 'dummy', 'dummy')
+    return MockSet('dummy', total_cards, 'dummy', 'dummy', 'dummy', 'dummy')
 
 
 def get_pokemon_test_set():

@@ -24,3 +24,7 @@ class PokemonSet:
             if isinstance(set, PokemonSet):
                 set.print()
                 print("\n")
+
+
+def create_dummy_set_from_set_code(set_code: str):
+    return PokemonSet('DUMMY', 'DUMMY', 'DUMMY', set_code)

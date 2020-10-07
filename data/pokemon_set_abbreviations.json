@@ -1,20 +1,76 @@
 [
   {
     "abbreviation": "SSH",
-    "name":  "Sword and Shield",
-    "series": "Sword and Shield",
+    "name": "Sword & Shield",
+    "series": "Sword & Shield",
     "set_code": "swsh1"
   },
   {
     "abbreviation": "RCL",
-    "name":  "Rebel Clash",
-    "series": "Sword and Shield",
+    "name": "Rebel Clash",
+    "series": "Sword & Shield",
     "set_code": "swsh2"
   },
-    {
+  {
     "abbreviation": "DAA",
-    "name":  "Darkness Ablaze",
-    "series": "Sword and Shield",
+    "name": "Darkness Ablaze",
+    "series": "Sword & Shield",
     "set_code": "swsh3"
+  },
+  {
+    "set_code": "sm5",
+    "total_cards": "156",
+    "name": "Ultra Prism",
+    "abbreviation": "UPR",
+    "series": "Sun & Moon"
+  },
+  {
+    "set_code": "sm6",
+    "total_cards": "131",
+    "name": "Forbidden Light",
+    "abbreviation": "FLI",
+    "series": "Sun & Moon"
+  },
+  {
+    "set_code": "sm7",
+    "total_cards": "168",
+    "name": "Celestial Storm",
+    "abbreviation": "CES",
+    "series": "Sun & Moon"
+  },
+  {
+    "set_code": "sm8",
+    "total_cards": "214",
+    "name": "Lost Thunder",
+    "abbreviation": "LOT",
+    "series": "Sun & Moon"
+  },
+  {
+    "set_code": "sm9",
+    "total_cards": "181",
+    "name": "Team Up",
+    "abbreviation": "TEU",
+    "series": "Sun & Moon"
+  },
+  {
+    "set_code": "sm10",
+    "total_cards": "214",
+    "name": "Unbroken Bonds",
+    "abbreviation": "UNB",
+    "series": "Sun & Moon"
+  },
+  {
+    "set_code": "sm11",
+    "total_cards": "236",
+    "name": "Unified Minds",
+    "abbreviation": "UNM",
+    "series": "Sun & Moon"
+  },
+  {
+    "set_code": "sm12",
+    "total_cards": "236",
+    "name": "Cosmic Eclipse",
+    "abbreviation": "CEC",
+    "series": "Sun & Moon"
   }
 ]
