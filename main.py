@@ -7,8 +7,10 @@ from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from utility import backup_excel_sheet_filename, remove_backup
 
 
+# TODO: prevent pokemon tcg api from calling card.find on secret type cards
+
 def main(argv):
-    update_excel_sheet('RCL', get_complete_set_info=True)
+    update_excel_sheet('DAA', get_complete_set_info=False)
 
 
 def update_excel_sheet(set_abbr: str, get_complete_set_info=False):
