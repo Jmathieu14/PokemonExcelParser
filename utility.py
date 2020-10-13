@@ -18,3 +18,7 @@ def remove_backup(filename):
 
 def backup_excel_sheet_filename(filename):
     return filename.split('.')[0] + '_backup.xlsx'
+
+
+def file_exists(filepath: str):
+    return osp.exists(filepath)
