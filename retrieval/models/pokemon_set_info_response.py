@@ -6,11 +6,11 @@ from pokemontcgsdk import Set
 
 class PokemonSetInfoResponse:
     def __init__(self, ptcg_set: Set):
-        self.code = ptcg_set.code
-        self.total_cards = ptcg_set.total_cards
+        self.code = ptcg_set.id
+        self.total_cards = ptcg_set.total
         self.name = ptcg_set.name
-        self.ptcgo_code = ptcg_set.ptcgo_code
-        self.release_date = ptcg_set.release_date
+        self.ptcgo_code = ptcg_set.ptcgoCode
+        self.release_date = ptcg_set.releaseDate
         self.series = ptcg_set.series
 
     def __str__(self):

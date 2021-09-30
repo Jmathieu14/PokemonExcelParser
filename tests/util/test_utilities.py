@@ -1,24 +1,32 @@
 # Author: Jacques
 # Date: 06/07/2020
 # Time: 10:45 PM
-from pokemontcgsdk import Card
+from pokemontcgsdk import Card, Set
 
 from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from data.models.pokemon_set_model import PokemonSet
-from retrieval.models.index_card_model import IndexCard
+from retrieval.models.index_card_model import IndexCard, SimplerCard
 
 from unittest.mock import Mock
+from typing import Optional
 import utility as util
 
 
 # Mock the pokemontcgsdk Set
 class MockSet:
-    def __init__(self, code, total_cards: int, name, ptcgo_code, release_date, series):
-        self.code = code
-        self.total_cards = total_cards
+    id: str
+    name: str
+    ptcgoCode: Optional[str]
+    releaseDate: str
+    series: str
+    total: int
+
+    def __init__(self, id_str, total: int, name, ptcgo_code, release_date, series):
+        self.id = id_str
+        self.total = total
         self.name = name
-        self.ptcgo_code = ptcgo_code
-        self.release_date = release_date
+        self.ptcgoCode = ptcgo_code
+        self.releaseDate = release_date
         self.series = series
 
 
@@ -35,11 +43,11 @@ def excel_copy_path(path: str):
 
 
 def empty_index_card():
-    return IndexCard(0, Card({}))
+    return IndexCard(0, SimplerCard.init_empty())
 
 
 def index_card(index: int, name: str, rarity: str, _type: str):
-    card = Card()
+    card: SimplerCard = SimplerCard.init_empty()
     card.name = name
     card.rarity = rarity
     card.types = [_type]

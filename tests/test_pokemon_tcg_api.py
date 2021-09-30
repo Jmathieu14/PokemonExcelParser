@@ -6,7 +6,7 @@ from retrieval.models.index_card_model import IndexCard
 from retrieval.models.index_cards_model import IndexCards
 from retrieval.models.pokemon_set_info_response import PokemonSetInfoResponse
 from retrieval.pokemon_tcg_api import get_set_card_count, get_set_info, get_cards_not_in_list
-from tests.util.test_utilities import get_pokemon_test_set, empty_index_card, MockSet, makeDummySet
+from tests.util.test_utilities import get_pokemon_test_set, empty_index_card, makeDummySet
 
 test_pokemon_set = get_pokemon_test_set()
 
