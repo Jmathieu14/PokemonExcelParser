@@ -40,4 +40,4 @@ def get_set_info(pokemon_set: PokemonSet) -> PokemonSetInfoResponse:
 
 def get_set_card_count(pokemon_set: PokemonSet) -> int:
     info = get_set_info(pokemon_set)
-    return int(info.total_cards)
+    return int(info.total)
