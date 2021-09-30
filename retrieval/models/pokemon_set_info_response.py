@@ -22,7 +22,7 @@ class PokemonSetInfoResponse:
         self.series = ptcg_set.series
 
     def __str__(self):
-        return "{{\"id\": \"{0}\"," \
+        return "{{\"set_code\": \"{0}\"," \
                " \"total\": \"{1}\"," \
                " \"name\": \"{2}\"," \
                " \"abbreviation\": \"{3}\"," \

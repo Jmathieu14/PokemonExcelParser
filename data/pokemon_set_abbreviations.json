@@ -32,6 +32,27 @@
     "series": "Sword & Shield"
   },
   {
+    "set_code": "swsh5",
+    "total": "183",
+    "name": "Battle Styles",
+    "abbreviation": "BST",
+    "series": "Sword & Shield"
+  },
+  {
+    "set_code": "swsh6",
+    "total": "233",
+    "name": "Chilling Reign",
+    "abbreviation": "CRE",
+    "series": "Sword & Shield"
+  },
+  {
+    "set_code": "swsh7",
+    "total": "237",
+    "name": "Evolving Skies",
+    "abbreviation": "EVS",
+    "series": "Sword & Shield"
+  },
+  {
     "set_code": "sm5",
     "total_cards": "156",
     "name": "Ultra Prism",

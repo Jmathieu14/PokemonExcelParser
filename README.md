@@ -7,6 +7,7 @@ Run the following command from the pipeline
 ``` bash
 python -m retrieval.pokemon_tcg_api_cli get_set_info -s <SET_ID>
 ```
+Where **SET_ID** is something like **swsh4**
 
 
 ### Before Running

@@ -1,7 +1,6 @@
 # Author: Jacques
 # Date: 07/05/2020
 # Time: 3:22 PM
-from pokemontcgsdk import Card
 from typing import Optional, List
 
 
