@@ -41,8 +41,11 @@ class PokemonSetSheet:
         for j in range(1, self.excel_sheet.max_row + 1):
             self.excel_sheet.cell(row=j, column=other_index).value = values_to_move[j-1]
 
-    def _set_cell_value_at(self, value, row, column):
+    def _set_cell_value_at(self, value, row: int, column: int):
         self.excel_sheet.cell(row=row, column=column).value = value
+
+    def get_cell_value_at(self, row: int, column: int):
+        return self.excel_sheet.cell(row=row, column=column).value
 
     def _is_cell_empty_at(self, row, column):
         cell_value: str = self.excel_sheet.cell(row=row, column=column).value
@@ -55,7 +58,7 @@ class PokemonSetSheet:
                 return True
         return False
 
-    def get_column_index_with_name(self, column_name):
+    def get_column_index_with_name(self, column_name: str):
         for i in range(1, self.excel_sheet.max_column + 1):
             name_at_i = self.excel_sheet.cell(row=1, column=i).value
             if name_at_i == column_name:

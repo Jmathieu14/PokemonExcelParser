@@ -38,7 +38,8 @@ class IndexCard:
         return first_type
 
     def __str__(self):
-        return "IndexCard: [ index: {0}, name: {1}, rarity, {2} ]".format(
+        return "IndexCard: [ index: {0}, name: {1}, rarity: {2}, type: {3} ]".format(
             self.index,
             self.get_name(),
-            self.get_rarity())
+            self.get_rarity(),
+            self.get_first_type())

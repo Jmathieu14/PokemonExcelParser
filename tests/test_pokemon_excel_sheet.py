@@ -94,6 +94,7 @@ class TestPokemonSetSheet(unittest.TestCase):
         expected_card_numbers = [1, 3, 5, 7, 9]
         actual_card_numbers = my_set_sheet.get_card_numbers_in_sheet()
         assert expected_card_numbers == actual_card_numbers
+        os.remove(excel_copy_path(test_path))
 
 
 def assert_column_is_in_sheet(poke_column: PokeColumn, poke_sheet: PokemonSetSheet):

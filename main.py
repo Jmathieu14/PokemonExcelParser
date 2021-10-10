@@ -10,7 +10,9 @@ from utility import backup_excel_sheet_filename, remove_backup, file_exists
 # TODO: prevent pokemon tcg api from calling card.find on secret type cards
 
 def main(argv):
-    update_excel_sheet('VIV', get_complete_set_info=False)
+    sets_to_update = ['SSH', 'CPA', 'DAA', 'VIV', 'CRE', 'EVS', 'BST']
+    for poke_set in sets_to_update:
+        update_excel_sheet(poke_set, get_complete_set_info=False)
 
 
 def update_excel_sheet(set_abbr: str, get_complete_set_info=False):
