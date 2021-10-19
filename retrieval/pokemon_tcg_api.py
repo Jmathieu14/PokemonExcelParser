@@ -1,11 +1,17 @@
 # Author: Jacques
 # Date: 05/30/2020
 # Time: 6:06 PM
+import time
+
 from pokemontcgsdk import Card, Set
 from data.models.pokemon_set_model import PokemonSet
 from retrieval.models.index_card_model import IndexCard
 from retrieval.models.index_cards_model import IndexCards
 from retrieval.models.pokemon_set_info_response import PokemonSetInfoResponse
+
+
+MAX_REQUESTS_PER_MINUTE = 30
+CURRENT_REQUESTS_IN_MINUTE = 0
 
 
 def get_card_from_database(pokemon_set: PokemonSet, number: int) -> IndexCard:
@@ -16,9 +22,15 @@ def get_card_from_database(pokemon_set: PokemonSet, number: int) -> IndexCard:
 
 
 def get_cards_from_database(pokemon_set: PokemonSet, numbers: [int]) -> IndexCards:
+    global CURRENT_REQUESTS_IN_MINUTE
+    global MAX_REQUESTS_PER_MINUTE
     index_cards = IndexCards()
     for index in range(0, numbers.__len__()):
+        if not CURRENT_REQUESTS_IN_MINUTE < MAX_REQUESTS_PER_MINUTE:
+            time.sleep(60)
+            CURRENT_REQUESTS_IN_MINUTE = 0
         index_cards.add_index_card(get_card_from_database(pokemon_set, numbers[index]))
+        CURRENT_REQUESTS_IN_MINUTE = CURRENT_REQUESTS_IN_MINUTE + 1
     return index_cards
 
 
