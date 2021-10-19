@@ -1,11 +1,10 @@
 import unittest
 import unittest.mock as mock
 
-from unittest.mock import Mock
 from retrieval.models.index_card_model import IndexCard
 from retrieval.models.index_cards_model import IndexCards
 from retrieval.models.pokemon_set_info_response import PokemonSetInfoResponse
-from retrieval.pokemon_tcg_api import get_set_card_count, get_set_info, get_cards_not_in_list
+from retrieval.pokemon_tcg_api import get_set_card_count, get_set_info, get_cards_not_in_list, get_cards_from_database
 from tests.util.test_utilities import get_pokemon_test_set, empty_index_card, makeDummySet
 
 test_pokemon_set = get_pokemon_test_set()
@@ -48,6 +47,23 @@ class TestPokemonTcgApi(unittest.TestCase):
         expected_card_number_list = [3, 5]
         get_cards_not_in_list(test_pokemon_set, cards_in_list)
         mock_get_cards_from_database.assert_called_with(test_pokemon_set, expected_card_number_list)
+
+    @mock.patch('retrieval.pokemon_tcg_api.get_cards_from_database')
+    def test_get_cards_not_in_list__should_skip_calls_for_cards_above_set_card_count(self, mock_get_cards_from_database):
+        mock_get_set_card_count = mock.patch('retrieval.pokemon_tcg_api.get_set_card_count', return_value=5)
+        mock_get_set_card_count.start()
+        cards_in_list = [1, 2, 4, 6, 9]
+        expected_card_number_list = [3, 5]
+        get_cards_not_in_list(test_pokemon_set, cards_in_list)
+        mock_get_cards_from_database.assert_called_with(test_pokemon_set, expected_card_number_list)
+
+    @mock.patch('retrieval.pokemon_tcg_api.get_card_from_database')
+    def test_get_cards_from_database__should_skip_calls_for_cards_above_set_card_count(self, mock_get_card_from_database):
+        mock_get_set_card_count = mock.patch('retrieval.pokemon_tcg_api.get_set_card_count', return_value=5)
+        mock_get_set_card_count.start()
+        card_numbers = [6, 9]
+        get_cards_from_database(test_pokemon_set, card_numbers)
+        mock_get_card_from_database.assert_not_called()
 
 
 def get_suite():

@@ -60,6 +60,13 @@
     "series": "Sword & Shield"
   },
   {
+    "set_code": "swshp",
+    "total": "103",
+    "name": "SWSH Black Star Promos",
+    "abbreviation": "PR-SW",
+    "series": "Sword & Shield"
+  },
+  {
     "set_code": "sm5",
     "total_cards": "156",
     "name": "Ultra Prism",
