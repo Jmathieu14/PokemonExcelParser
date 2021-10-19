@@ -49,7 +49,8 @@ class TestPokemonTcgApi(unittest.TestCase):
         mock_get_cards_from_database.assert_called_with(test_pokemon_set, expected_card_number_list)
 
     @mock.patch('retrieval.pokemon_tcg_api.get_cards_from_database')
-    def test_get_cards_not_in_list__should_skip_calls_for_cards_above_set_card_count(self, mock_get_cards_from_database):
+    def test_get_cards_not_in_list__should_skip_calls_for_cards_above_set_card_count(self,
+                                                                                     mock_get_cards_from_database):
         mock_get_set_card_count = mock.patch('retrieval.pokemon_tcg_api.get_set_card_count', return_value=5)
         mock_get_set_card_count.start()
         cards_in_list = [1, 2, 4, 6, 9]
@@ -58,12 +59,22 @@ class TestPokemonTcgApi(unittest.TestCase):
         mock_get_cards_from_database.assert_called_with(test_pokemon_set, expected_card_number_list)
 
     @mock.patch('retrieval.pokemon_tcg_api.get_card_from_database')
-    def test_get_cards_from_database__should_skip_calls_for_cards_above_set_card_count(self, mock_get_card_from_database):
+    def test_get_cards_from_database__should_skip_calls_for_cards_above_set_card_count_when_toggled_false(self, mock_get_card_from_database):
+        mock_get_set_card_count = mock.patch('retrieval.pokemon_tcg_api.get_set_card_count', return_value=5)
+        mock_get_set_card_count.start()
+        card_numbers = [6, 9]
+        get_cards_from_database(test_pokemon_set, card_numbers, False)
+        mock_get_card_from_database.assert_not_called()
+
+    @mock.patch('retrieval.pokemon_tcg_api.get_card_from_database')
+    def test_get_cards_from_database__should_call_cards_above_set_card_count_by_default(self, mock_get_card_from_database):
         mock_get_set_card_count = mock.patch('retrieval.pokemon_tcg_api.get_set_card_count', return_value=5)
         mock_get_set_card_count.start()
         card_numbers = [6, 9]
         get_cards_from_database(test_pokemon_set, card_numbers)
-        mock_get_card_from_database.assert_not_called()
+        mock_get_card_from_database.assert_called()
+        # For now, assert the last call is what we expect
+        mock_get_card_from_database.assert_called_with(test_pokemon_set, card_numbers[1])
 
 
 def get_suite():
