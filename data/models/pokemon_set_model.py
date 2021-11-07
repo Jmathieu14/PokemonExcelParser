@@ -25,6 +25,14 @@ class PokemonSet:
                 set.print()
                 print("\n")
 
+    def __eq__(self, other):
+        if not(type(other) == PokemonSet):
+            return False
+        return self.name == other.name and \
+               self.abbreviation == other.abbreviation and \
+               self.series == other.series and \
+               self.set_code == other.set_code
+
 
 def create_dummy_set_from_set_code(set_code: str):
     return PokemonSet('DUMMY', 'DUMMY', 'DUMMY', set_code)

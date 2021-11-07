@@ -3,9 +3,10 @@
 # Time: 10:45 PM
 from pokemontcgsdk import Card, Set
 
+from data.models.pokemon_card_model import SimplerCard
 from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from data.models.pokemon_set_model import PokemonSet
-from retrieval.models.index_card_model import IndexCard, SimplerCard
+from retrieval.models.index_card_model import IndexCard
 
 from unittest.mock import Mock
 from typing import Optional

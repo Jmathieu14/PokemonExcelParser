@@ -1,23 +1,7 @@
 # Author: Jacques
 # Date: 07/05/2020
 # Time: 3:22 PM
-from typing import Optional, List
-
-
-# Simpler implementation of type Card from pokemontcgsdk
-class SimplerCard:
-    name: str
-    rarity: Optional[str]
-    types: Optional[List[str]]
-
-    def __init__(self, name, rarity, types):
-        self.name = name
-        self.rarity = rarity
-        self.types = types
-
-    @staticmethod
-    def init_empty():
-        return SimplerCard('', '', [])
+from data.models.pokemon_card_model import SimplerCard
 
 
 class IndexCard:
