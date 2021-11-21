@@ -52,7 +52,7 @@ def deck_lines_to_deck_list(lines: List[str]):
     return deck_list
 
 
-def deck_list_file_to_deck_list(filepath: str):
+def decklist_file_to_decklist(filepath: str):
     if file_exists(filepath):
         with open(filepath, 'r') as my_deck:
             deck_lines = my_deck.readlines()

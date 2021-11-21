@@ -4,7 +4,7 @@
 
 import unittest
 from data.functions.pokemon_deck_functions import deck_line_to_item, deck_lines_to_deck_list, \
-    deck_list_file_to_deck_list
+    decklist_file_to_decklist
 from data.models.pokemon_card_model import PokemonCard
 from data.models.pokemon_deck_item_model import PokemonDeckItem
 from data.models.pokemon_deck_summary_model import PokemonDeckSummary
@@ -30,7 +30,7 @@ pokemon_summary_2 = PokemonDeckSummary(summary_type="Pokemon", total=2)
 trainer_summary = PokemonDeckSummary(summary_type="Trainer", total=1)
 
 
-class TestPokemonCard(unittest.TestCase):
+class TestPokemonDeck(unittest.TestCase):
     def test_deck_line_to_item__makes_expected_item_with_count_1(self):
         actual_item = deck_line_to_item(deck_line_one)
         assert actual_item == air_balloon_deck_item
@@ -58,7 +58,7 @@ class TestPokemonCard(unittest.TestCase):
         assert actual_deck_list[2] == zacian_v_deck_item
 
     def test_deck_list_file_to_deck_list__makes_expected_deck_list(self):
-        actual_deck_list = deck_list_file_to_deck_list('tests/data/test_simple_deck_list.ptcgo.txt')
+        actual_deck_list = decklist_file_to_decklist('tests/data/test_simple_deck_list.ptcgo.txt')
         assert actual_deck_list.__len__() == 4
         assert actual_deck_list[0] == pokemon_summary_2
         assert actual_deck_list[1] == zacian_v_deck_item
@@ -67,7 +67,7 @@ class TestPokemonCard(unittest.TestCase):
 
 
 def get_suite():
-    return unittest.TestLoader().loadTestsFromTestCase(TestPokemonCard)
+    return unittest.TestLoader().loadTestsFromTestCase(TestPokemonDeck)
 
 
 def main():
