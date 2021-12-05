@@ -1,5 +1,4 @@
-[
-  {
+[{
     "abbreviation": "SSH",
     "name": "Sword & Shield",
     "series": "Sword & Shield",
@@ -64,6 +63,13 @@
     "total": "25",
     "name": "Celebrations",
     "abbreviation": "CEL",
+    "series": "Sword & Shield"
+  },
+  {
+    "set_code": "swsh8",
+    "total": "284",
+    "name": "Fusion Strike",
+    "abbreviation": "FST",
     "series": "Sword & Shield"
   },
   {
