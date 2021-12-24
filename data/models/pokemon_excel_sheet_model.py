@@ -24,12 +24,11 @@ def _get_excel_workbook_from_file(file_path: str) -> workbook:
 class PokemonSetSheet:
     def __init__(self, pokemon_set: PokemonSet, excel_workbook: workbook, excel_sheet: worksheet, file_path: str):
         self.pokemon_set = pokemon_set
-        self.excel_workbook: openpyxl.workbook = excel_workbook
+        self.excel_workbook: workbook = excel_workbook
         self.excel_sheet: worksheet = excel_sheet
         self.file_path = file_path
         self.column_config = get_poke_columns_config()
         self.__column_offset__ = self.column_config.__len__() + self.excel_sheet.max_column
-        # Perform setup util
         self.configure_columns()
 
     def _move_column_from_index_to_other_index(self, index, other_index):
