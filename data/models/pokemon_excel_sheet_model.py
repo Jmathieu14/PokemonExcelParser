@@ -1,20 +1,11 @@
 from data.models.pokemon_set_model import PokemonSet
 from data.models.pokemon_column_model import PokeColumn
 import openpyxl
-from openpyxl import worksheet
-from openpyxl import workbook
+from openpyxl.worksheet import worksheet
+from openpyxl.workbook import workbook
+from data.poke_column_config import get_poke_columns_config
 
 DEBUG_MODE = False
-
-
-def get_poke_columns_config():
-    return [PokeColumn('Card #', 2),
-            PokeColumn('# Owned', 3),
-            PokeColumn('Name', 1),
-            PokeColumn('Rarity', 4),
-            PokeColumn('Holo Count', 5),
-            PokeColumn('Reverse-Holo Count', 6),
-            PokeColumn('Type', 7)]
 
 
 def _get_excel_workbook_from_file(file_path: str) -> workbook:

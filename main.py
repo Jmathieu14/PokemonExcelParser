@@ -2,7 +2,7 @@ import shutil
 import sys
 
 from data.functions.pokemon_excel_sheet_functions import update_missing_pokemon_metadata, insert_complete_set_metadata, \
-    get_conditional_formatting
+    add_conditional_formatting_from_config
 from data.functions.pokemon_set_list_functions import get_sets, find_set_in_sets
 from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from utility import backup_excel_sheet_filename, remove_backup, file_exists
@@ -47,11 +47,13 @@ def update_excel_sheets(set_abbreviations: [], get_complete_set_info=False):
 
 def main(argv):
     if argv.__contains__("test"):
-        print("Testing out functions...")
-        my_set = find_set_in_sets("EVS", ALL_SETS)
+        print("Testing out functions... TODO: keep log of sheets with conditional formatting already applied")
+        my_set = find_set_in_sets("CPA", ALL_SETS)
         excel_file_path = get_excel_file_path()
-        my_sheet = PokemonSetSheet.create(my_set, excel_file_path)
-        get_conditional_formatting(my_sheet)
+        shutil.copy2(excel_file_path, backup_excel_sheet_filename(excel_file_path))
+        my_pokemon_set_sheet = PokemonSetSheet.create(my_set, excel_file_path)
+        add_conditional_formatting_from_config(my_pokemon_set_sheet)
+        my_pokemon_set_sheet.save()
     else:
         sets_to_update = ['SSH', 'CPA', 'DAA', 'VIV', 'CRE', 'EVS', 'BST', 'CEL', 'PR-SW', 'SHF', 'FST']
         update_excel_sheets(sets_to_update, get_complete_set_info=False)

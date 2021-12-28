@@ -1,9 +1,9 @@
 # Author: Jacques
 # Date: 06/17/2020
 # Time: 8:10 AM
+import string
 
-from openpyxl import worksheet
-from pprint import pprint
+from data.conditional_formatting_config import add_all_formatting_rules_to_sheet
 from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from retrieval.models.index_card_model import IndexCard
 from retrieval.models.index_cards_model import IndexCards
@@ -35,8 +35,5 @@ def insert_complete_set_metadata(pokemon_set_sheet: PokemonSetSheet):
     _insert_or_update_sheet_with_index_cards(pokemon_set_sheet, index_cards, False)
 
 
-# TODO: make conditional formatting config file based on formatting existing on EVS worksheet
-def get_conditional_formatting(pokemon_set_sheet: PokemonSetSheet):
-    excel_sheet: worksheet = pokemon_set_sheet.excel_sheet
-    my_conditional_formatting = excel_sheet.conditional_formatting
-    pprint(dir(my_conditional_formatting))
+def add_conditional_formatting_from_config(pokemon_set_sheet: PokemonSetSheet):
+    add_all_formatting_rules_to_sheet(pokemon_set_sheet.excel_sheet)
