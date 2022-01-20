@@ -10,9 +10,6 @@ from utility import backup_excel_sheet_filename, remove_backup, file_exists
 ALL_SETS = get_sets()
 
 
-# TODO: Preserve table headers upon updating excel sheets (Or add in Show low owned as a column and pythonify conditional formatting)
-
-
 def get_excel_file_path():
     excel_file_path = 'C:\\Users\\User\\OneDrive\\Pokemon TCG Cards Owned.xlsx'
     alternate_excel_file_path = 'C:\\Users\\jmath\\OneDrive\\Pokemon TCG Cards Owned.xlsx'
