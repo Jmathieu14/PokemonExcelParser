@@ -11,7 +11,7 @@ ALL_SETS = get_sets()
 
 
 def get_excel_file_path():
-    excel_file_path = 'C:\\Users\\User\\OneDrive\\Pokemon TCG Cards Owned.xlsx'
+    excel_file_path = 'C:\\Users\\User\\OneDrive\\Pokemon TCG Cards Owned_test2.xlsx'
     alternate_excel_file_path = 'C:\\Users\\jmath\\OneDrive\\Pokemon TCG Cards Owned.xlsx'
     if not file_exists(excel_file_path) and file_exists(alternate_excel_file_path):
         excel_file_path = alternate_excel_file_path

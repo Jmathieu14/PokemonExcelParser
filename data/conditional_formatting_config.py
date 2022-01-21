@@ -33,10 +33,17 @@ def get_last_column_index():
     return last_column_index
 
 
+def get_last_column_letter_plus_one():
+    last_column_index = 0
+    for column in COLUMNS:
+        last_column_index = max(last_column_index, column.index)
+    return column_number_to_letter(last_column_index + 1)
+
+
 def get_applies_to_all_rows():
     last_column_index = get_last_column_index()
     last_column_letter = column_number_to_letter(last_column_index)
-    return '$A2:$%s500' % last_column_letter
+    return '$A1:$%s500' % last_column_letter
 
 
 ENERGY_TYPE_COLUMN_LETTER = get_energy_type_column_letter()
@@ -79,9 +86,9 @@ COLORLESS_FORMULA_TEXT = make_formula_text(ENERGY_TYPE_COLUMN_LETTER, 'Colorless
 
 COLORLESS_FORMULA = FormulaRule(formula=[COLORLESS_FORMULA_TEXT], border=COLORLESS_BORDER, fill=COLORLESS_FILL)
 
-TRAINER_FILL = PatternFill(bgColor='A6A6A6', fill_type='solid')
+TRAINER_FILL = PatternFill(bgColor='FFFFFF', fill_type='solid')
 TRAINER_FONT = Font(color='1F3214')
-TRAINER_BORDER_COLOR = Color('F2F2F2', type='hex')
+TRAINER_BORDER_COLOR = Color('D9D9D9', type='hex')
 TRAINER_BORDER_SIDE = Side(style='medium', color=TRAINER_BORDER_COLOR, border_style='thin')
 TRAINER_BORDER = Border(left=TRAINER_BORDER_SIDE,
                      right=TRAINER_BORDER_SIDE,
@@ -164,7 +171,7 @@ GRASS_BORDER = Border(left=GRASS_BORDER_SIDE,
                      right=GRASS_BORDER_SIDE,
                      top=GRASS_BORDER_SIDE,
                      bottom=GRASS_BORDER_SIDE)
-GRASS_FORMULA_TEXT = make_formula_text(ENERGY_TYPE_COLUMN_LETTER, 'Green')
+GRASS_FORMULA_TEXT = make_formula_text(ENERGY_TYPE_COLUMN_LETTER, 'Grass')
 
 GRASS_FORMULA = FormulaRule(formula=[GRASS_FORMULA_TEXT], border=GRASS_BORDER, fill=GRASS_FILL)
 
@@ -179,15 +186,19 @@ FIGHTING_FORMULA_TEXT = make_formula_text(ENERGY_TYPE_COLUMN_LETTER, 'Fighting')
 
 FIGHTING_FORMULA = FormulaRule(formula=[FIGHTING_FORMULA_TEXT], border=FIGHTING_BORDER, fill=FIGHTING_FILL)
 
-
-# TODO FINISH THIS!!!
 RED_FONT = Font(color='C00000')
-NUMBER_OWNED_COLUMN_LETTER = get_number_owned_column_letter()
-SHOW_LESS_THAN_FOUR_OWNED_FORMULA_TEXT = '=IF($H$2="Yes",4,0)'
-SHOW_LESS_THAN_FOUR_OWNED_FORMULA = CellIsRule(operator='lessThan', stopIfTrue=False, font=RED_FONT)
+number_owned_column_letter = get_number_owned_column_letter()
+last_column_letter_plus_one = get_last_column_letter_plus_one()
+SHOW_LESS_THAN_FOUR_OWNED_FORMULA_TEXT = '=IF($%s$2="Yes",4,0)' % last_column_letter_plus_one
+SHOW_LESS_THAN_FOUR_OWNED_FORMULA = CellIsRule(operator='lessThan',
+                                               stopIfTrue=False,
+                                               font=RED_FONT,
+                                               formula=[SHOW_LESS_THAN_FOUR_OWNED_FORMULA_TEXT])
+APPLIES_TO_NUMBER_OWNED_COLUMN = '$%s1:$%s500' % (number_owned_column_letter, number_owned_column_letter)
 
 
 def add_all_formatting_rules_to_sheet(ws: worksheet):
+    ws.conditional_formatting.add(APPLIES_TO_NUMBER_OWNED_COLUMN, SHOW_LESS_THAN_FOUR_OWNED_FORMULA)
     ws.conditional_formatting.add(APPLIES_TO_ALL_ROWS, GRASS_FORMULA)
     ws.conditional_formatting.add(APPLIES_TO_ALL_ROWS, FIRE_FORMULA)
     ws.conditional_formatting.add(APPLIES_TO_ALL_ROWS, WATER_FORMULA)
