@@ -11,7 +11,7 @@ ALL_SETS = get_sets()
 
 
 def get_excel_file_path():
-    excel_file_path = 'C:\\Users\\User\\OneDrive\\Pokemon TCG Cards Owned_test2.xlsx'
+    excel_file_path = 'C:\\Users\\User\\OneDrive\\Pokemon TCG Cards Owned.xlsx'
     alternate_excel_file_path = 'C:\\Users\\jmath\\OneDrive\\Pokemon TCG Cards Owned.xlsx'
     if not file_exists(excel_file_path) and file_exists(alternate_excel_file_path):
         excel_file_path = alternate_excel_file_path
@@ -43,14 +43,23 @@ def update_excel_sheets(set_abbreviations: [], get_complete_set_info=False):
 
 
 def main(argv):
-    if argv.__contains__("test"):
-        print("Testing out functions... TODO: keep log of sheets with conditional formatting already applied")
-        my_set = find_set_in_sets("CPA", ALL_SETS)
+    if argv.__contains__("apply_formatting"):
+        print("TODO: keep log of sheets with conditional formatting already applied to avoid appending duplicate rules")
+        # Temp log of sets with existing formatting: FLI - FST
         excel_file_path = get_excel_file_path()
         shutil.copy2(excel_file_path, backup_excel_sheet_filename(excel_file_path))
-        my_pokemon_set_sheet = PokemonSetSheet.create(my_set, excel_file_path)
-        add_conditional_formatting_from_config(my_pokemon_set_sheet)
-        my_pokemon_set_sheet.save()
+        sets_to_update = []
+        for i in range(0, sets_to_update.__len__()):
+            my_set = find_set_in_sets(sets_to_update[i], ALL_SETS)
+            print('Found set %s' % sets_to_update[i])
+            my_set.print()
+            print('Creating PokemonSetSheet with %s at the path: %s' % (sets_to_update[i], excel_file_path))
+            my_pokemon_set_sheet = PokemonSetSheet.create(my_set, excel_file_path)
+            print('Adding config...')
+            add_conditional_formatting_from_config(my_pokemon_set_sheet)
+            print('Saving changes...')
+            my_pokemon_set_sheet.save()
+            print('Conditional Formatting Applied to: %s' % sets_to_update[i])
     else:
         sets_to_update = ['SSH', 'CPA', 'DAA', 'VIV', 'CRE', 'EVS', 'BST', 'CEL', 'PR-SW', 'SHF', 'FST']
         update_excel_sheets(sets_to_update, get_complete_set_info=False)
