@@ -43,7 +43,17 @@ def update_excel_sheets(set_abbreviations: [], get_complete_set_info=False):
 
 
 def main(argv):
-    if argv.__contains__("apply_formatting"):
+    caps_argv = []
+    for i in range(0, argv.__len__()):
+        caps_argv.append(argv[i].upper())
+    if caps_argv.__contains__("HELP"):
+        print("\nCommand Format: `python main.py <OPTIONS>`\n")
+        print("Options:\n")
+        print("- Set Abbreviations - update pokemon owned spreadsheet per the set specified (i.e. CEL)")
+        print("- SETS - show all sets that can be updated")
+        print("- APPLY_FORMATTING - applies formatting to sets specified in main.py")
+        print("- HELP, H - bring up the help menu\n")
+    elif argv.__contains__("APPLY_FORMATTING"):
         print("TODO: keep log of sheets with conditional formatting already applied to avoid appending duplicate rules")
         # Temp log of sets with existing formatting: FLI - FST
         excel_file_path = get_excel_file_path()
@@ -60,9 +70,15 @@ def main(argv):
             print('Saving changes...')
             my_pokemon_set_sheet.save()
             print('Conditional Formatting Applied to: %s' % sets_to_update[i])
+    elif caps_argv.__contains__("SETS"):
+        sets_availabe = ['SSH', 'CPA', 'DAA', 'VIV', 'CRE', 'EVS', 'BST', 'CEL', 'PR-SW', 'SHF', 'FST']
+        print(sets_availabe)
     else:
-        sets_to_update = ['SSH', 'CPA', 'DAA', 'VIV', 'CRE', 'EVS', 'BST', 'CEL', 'PR-SW', 'SHF', 'FST']
-        update_excel_sheets(sets_to_update, get_complete_set_info=False)
+        sets_to_update = caps_argv
+        print("\nUpdating the following set(s): ")
+        print(sets_to_update)
+        if sets_to_update.__len__() > 0:
+            update_excel_sheets(sets_to_update, get_complete_set_info=False)
 
 
 if __name__ == '__main__':
