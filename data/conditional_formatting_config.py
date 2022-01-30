@@ -43,7 +43,7 @@ def get_last_column_letter_plus_one():
 def get_applies_to_all_rows():
     last_column_index = get_last_column_index()
     last_column_letter = column_number_to_letter(last_column_index)
-    return '$A1:$%s500' % last_column_letter
+    return '$A1:$%s300' % last_column_letter
 
 
 ENERGY_TYPE_COLUMN_LETTER = get_energy_type_column_letter()
@@ -194,7 +194,7 @@ SHOW_LESS_THAN_FOUR_OWNED_FORMULA = CellIsRule(operator='lessThan',
                                                stopIfTrue=False,
                                                font=RED_FONT,
                                                formula=[SHOW_LESS_THAN_FOUR_OWNED_FORMULA_TEXT])
-APPLIES_TO_NUMBER_OWNED_COLUMN = '$%s1:$%s500' % (number_owned_column_letter, number_owned_column_letter)
+APPLIES_TO_NUMBER_OWNED_COLUMN = '$%s1:$%s300' % (number_owned_column_letter, number_owned_column_letter)
 
 
 def add_all_formatting_rules_to_sheet(ws: worksheet):
