@@ -19,6 +19,8 @@ class PokemonSetSheet:
         self.excel_sheet: worksheet = excel_sheet
         self.file_path = file_path
         self.column_config = get_poke_columns_config()
+        print("Column config has %i columns and spreadsheet with name %s has %i columns" %
+              (self.column_config.__len__(), self.pokemon_set.abbreviation, self.excel_sheet.max_column))
         self.__column_offset__ = self.column_config.__len__() + self.excel_sheet.max_column
         self.configure_columns()
 
@@ -63,9 +65,11 @@ class PokemonSetSheet:
 
     def configure_columns(self):
         if not DEBUG_MODE:
+            self.delete_columns_to_right()
             self.move_existing_columns_out_of_way()
             self.move_existing_columns_to_proper_index()
             self.insert_missing_columns()
+            self.delete_columns_to_right()
 
     def insert_missing_columns(self):
         for i in range(0, self.column_config.__len__()):
@@ -85,6 +89,11 @@ class PokemonSetSheet:
         for i in range(1, last_column):
             if not self.is_column_empty(i):
                 self._move_column_from_index_to_other_index(i, i + self.__column_offset__)
+
+    def delete_columns_to_right(self):
+        last_config_column_plus_one = self.column_config.__len__() + 2
+        last_column = self.excel_sheet.max_column + 1
+        self.excel_sheet.delete_cols(last_config_column_plus_one, last_column - last_config_column_plus_one)
 
     def row_contains_empty_cells_under_columns_in_config(self, row_index: int, columns_to_exclude=None) -> bool:
         if columns_to_exclude is None:
