@@ -23,25 +23,25 @@ def handle_request_limit_check():
     CURRENT_REQUESTS_IN_MINUTE = CURRENT_REQUESTS_IN_MINUTE + 1
 
 
-def get_card_from_database(pokemon_set: PokemonSet, number: int) -> IndexCard:
-    search_str = "{0}-{1}".format(pokemon_set.set_code, str(number))
+def get_card_from_database(pokemon_set: PokemonSet, number_or_id: int or str) -> IndexCard:
+    search_str = "{0}-{1}".format(pokemon_set.set_code, str(number_or_id))
     # Temp Fix for SWSH Promo card search
     if pokemon_set.set_code == 'swshp':
-        num_as_str = str(number)
+        num_as_str = str(number_or_id)
         while num_as_str.__len__() < 3:
             num_as_str = "0" + num_as_str
         search_str = "{0}-SWSH{1}".format(pokemon_set.set_code, num_as_str)
     handle_request_limit_check()
     print("Calling Pokemon TCG API with following search:")
     print(search_str)
-    return IndexCard(number, Card.find(search_str))
+    return IndexCard(number_or_id, Card.find(search_str))
 
 
-def get_cards_from_database(pokemon_set: PokemonSet, numbers: [int], search_above_total: bool = True) -> IndexCards:
+def get_cards_from_database(pokemon_set: PokemonSet, numbers: [int or str], search_above_total: bool = True) -> IndexCards:
     index_cards = IndexCards()
     set_card_count = get_set_card_count(pokemon_set)
     for index in range(0, numbers.__len__()):
-        if numbers[index] <= set_card_count or search_above_total:
+        if (type(numbers[index]) == int and numbers[index] <= set_card_count) or search_above_total:
             index_cards.add_index_card(get_card_from_database(pokemon_set, numbers[index]))
     return index_cards
 
