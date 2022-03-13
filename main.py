@@ -5,6 +5,8 @@ from data.functions.pokemon_excel_sheet_functions import update_missing_pokemon_
     add_conditional_formatting_from_config
 from data.functions.pokemon_set_list_functions import get_sets, find_set_in_sets
 from data.models.pokemon_excel_sheet_model import PokemonSetSheet
+from data.models.pokemon_set_model import create_dummy_set_from_set_code
+from retrieval.pokemon_tcg_api import get_set_info
 from utility import backup_excel_sheet_filename, remove_backup, file_exists
 
 ALL_SETS = get_sets()
@@ -46,14 +48,19 @@ def main(argv):
     caps_argv = []
     for i in range(0, argv.__len__()):
         caps_argv.append(argv[i].upper())
-    if caps_argv.__contains__("HELP"):
+    if caps_argv.__contains__("HELP") or caps_argv.__contains__("H") or caps_argv.__len__() == 0:
         print("\nCommand Format: `python main.py <OPTIONS>`\n")
         print("Options:\n")
         print("- Set Abbreviations - update pokemon owned spreadsheet per the set specified (i.e. CEL)")
         print("- SETS - show all sets that can be updated")
+        print("- SET_INFO <set> - get information for specified set using pokemontcgsdk 'set_code'")
         print("- APPLY_FORMATTING - applies formatting to sets specified in main.py")
         print("- HELP, H - bring up the help menu\n")
-    elif argv.__contains__("APPLY_FORMATTING"):
+    elif caps_argv.__contains__("SET_INFO"):
+        my_set = create_dummy_set_from_set_code(str(argv[1]).lower())
+        tcg_api_response = get_set_info(my_set)
+        print(tcg_api_response)
+    elif caps_argv.__contains__("APPLY_FORMATTING"):
         print("TODO: keep log of sheets with conditional formatting already applied to avoid appending duplicate rules")
         # Temp log of sets with existing formatting: FLI - FST
         excel_file_path = get_excel_file_path()
