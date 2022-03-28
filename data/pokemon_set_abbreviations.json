@@ -1,5 +1,4 @@
-[
-  {
+[{
     "abbreviation": "SSH",
     "name": "Sword & Shield",
     "series": "Sword & Shield",
@@ -36,6 +35,13 @@
     "total": "73",
     "name": "Shining Fates",
     "abbreviation": "SHF",
+    "series": "Sword & Shield"
+  },
+  {
+    "set_code": "swsh45sv",
+    "total": "122",
+    "name": "Shiny Vault",
+    "abbreviation": "SHFSV",
     "series": "Sword & Shield"
   },
   {

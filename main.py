@@ -78,7 +78,7 @@ def main(argv):
             my_pokemon_set_sheet.save()
             print('Conditional Formatting Applied to: %s' % sets_to_update[i])
     elif caps_argv.__contains__("SETS"):
-        sets_availabe = ['SSH', 'CPA', 'DAA', 'VIV', 'CRE', 'EVS', 'BST', 'CEL', 'PR-SW', 'SHF', 'FST', 'BRS']
+        sets_availabe = ['SSH', 'CPA', 'DAA', 'VIV', 'CRE', 'EVS', 'BST', 'CEL', 'PR-SW', 'SHF', 'SHFSV', 'FST', 'BRS']
         print(sets_availabe)
     else:
         sets_to_update = caps_argv
