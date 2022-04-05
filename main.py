@@ -1,6 +1,7 @@
 import shutil
 import sys
 
+from data.functions.pokemon_deck_buildable import is_pokemon_deck_buildable
 from data.functions.pokemon_excel_sheet_functions import update_missing_pokemon_metadata, insert_complete_set_metadata, \
     add_conditional_formatting_from_config
 from data.functions.pokemon_set_list_functions import get_sets, find_set_in_sets
@@ -55,7 +56,15 @@ def main(argv):
         print("- SETS - show all sets that can be updated")
         print("- SET_INFO <set> - get information for specified set using pokemontcgsdk 'set_code'")
         print("- APPLY_FORMATTING - applies formatting to sets specified in main.py")
+        print("- DEV <command> - runs a dev command to test it's functionality")
         print("- HELP, H - bring up the help menu\n")
+    elif caps_argv.__contains__("DEV") and caps_argv.__contains__("IS_DECK_BUILDABLE"):
+        if caps_argv.__len__() <= 2:
+            print("Please pass in the deck list filepath as the third argument")
+        else:
+            deck_file_path = argv[2]
+            print(deck_file_path)
+            is_pokemon_deck_buildable(deck_file_path, get_excel_file_path())
     elif caps_argv.__contains__("SET_INFO"):
         my_set = create_dummy_set_from_set_code(str(argv[1]).lower())
         tcg_api_response = get_set_info(my_set)

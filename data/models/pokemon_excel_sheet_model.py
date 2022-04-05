@@ -1,3 +1,4 @@
+from data.models.pokemon_card_model import PokemonCardInfo, PokemonCard
 from data.models.pokemon_set_model import PokemonSet
 from data.models.pokemon_column_model import PokeColumn
 import openpyxl
@@ -134,6 +135,23 @@ class PokemonSetSheet:
         for i in range(2, self.excel_sheet.max_row + 1):
             numbers.append(self.get_card_number_for_row_index(i))
         return numbers
+
+    def get_cards_with_name(self, name: str):
+        name_column_index = self.get_column_index_with_name('Name')
+        number_owned_index = self.get_column_index_with_name('# Owned')
+        cards = []
+        name = name.strip()
+        lowercase_name = name.lower()
+        for i in range(2, self.excel_sheet.max_row + 1):
+            card_name_on_row = self.get_cell_value_at(i, name_column_index).strip().lower()
+            if lowercase_name == card_name_on_row:
+                number_owned = self.get_cell_value_at(i, number_owned_index)
+                card_number = self.get_card_number_for_row_index(i)
+                card = PokemonCard.builder().name(name).build_set(self.pokemon_set).build_index(card_number)
+                card_info = PokemonCardInfo.builder().build_card(card).build_count(number_owned)
+                print(card_info.__str__())
+                cards.append(card_info.__str__())
+        return cards
 
     def update_cell_with_card_number_and_column_name(self, value, card_number: int, column_name: str):
         column_index = self.get_column_index_with_name(column_name)

@@ -41,13 +41,13 @@ mock_deck_list = [
 class TestPokemonDeckBuildable(unittest.TestCase):
     @mock.patch('data.functions.pokemon_deck_buildable.decklist_file_to_decklist')
     def test_is_deck_buildable__calls_decklist_file_to_decklist(self, mock_decklist_file_to_decklist):
-        is_pokemon_deck_buildable("dummyFilePath.dummy")
+        is_pokemon_deck_buildable("dummyFilePath.dummy", "mock.excel.path")
         mock_decklist_file_to_decklist.assert_called_once_with("dummyFilePath.dummy")
 
     @mock.patch('data.functions.pokemon_deck_buildable.get_sets')
     @mock.patch('data.functions.pokemon_deck_buildable.decklist_file_to_decklist')
     def test_is_deck_buildable__calls_get_sets(self, mock_decklist_file_to_decklist, mock_get_sets):
-        is_pokemon_deck_buildable("my_mock_path")
+        is_pokemon_deck_buildable("my_mock_path", "mock.excel.path")
         mock_decklist_file_to_decklist.assert_called_once_with("my_mock_path")
         mock_get_sets.assert_called_once()
 
@@ -55,7 +55,7 @@ class TestPokemonDeckBuildable(unittest.TestCase):
     @mock.patch('data.functions.pokemon_deck_buildable.decklist_file_to_decklist')
     def test_is_deck_buildable__calls_find_set_in_sets(self, mock_decklist_file_to_decklist, mock_find_set_in_sets):
         mock_decklist_file_to_decklist.return_value = mock_deck_list
-        is_pokemon_deck_buildable("my_mock_path")
+        is_pokemon_deck_buildable("my_mock_path", "mock.excel.path")
         expected_calls = [
             mock.call("CEL", mock.ANY),
             mock.call("SSH", mock.ANY)]

@@ -3,6 +3,7 @@
 # Time: 7:13 PM
 
 # Simpler implementation of type Card from pokemontcgsdk
+import re
 from typing import Optional, List
 
 from data.models.pokemon_set_model import PokemonSet
@@ -12,6 +13,7 @@ class SimplerCard:
     name: str
     rarity: Optional[str]
     types: Optional[List[str]]
+    index: Optional[str]
 
     def __init__(self, name, rarity, types):
         self.name = name
@@ -33,8 +35,14 @@ class PokemonCard:
     def builder():
         return PokemonCard(-1, SimplerCard.init_empty())
 
-    def build_index(self, i: int):
-        self.index = i
+    def build_index(self, i):
+        if type(i) is int:
+            self.index = i
+            self.card.index = str(i)
+        if type(i) is str:
+            if re.search('[A-z]', i) is None:
+                self.index = int(i)
+            self.card.index = i
         return self
 
     def name(self, name: str):
@@ -78,3 +86,40 @@ class PokemonCard:
             self.get_name(),
             self.get_rarity(),
             self.get_first_type())
+
+
+class PokemonCardInfo:
+    card: PokemonCard
+    count: int
+
+    def __init__(self, card, count):
+        self.card = card
+        self.count = count
+
+    @staticmethod
+    def builder():
+        default_card = PokemonCard.builder()
+        return PokemonCardInfo(default_card, 0)
+
+    def build_card(self, card: PokemonCard):
+        self.card = card
+        return self
+
+    def build_count(self, count: int):
+        self.count = count
+        return self
+
+    def get_card(self):
+        return self.card
+
+    def get_count(self):
+        return self.count
+
+    def __eq__(self, other):
+        if type(other) is not PokemonCardInfo:
+            return False
+        return self.count == other.count and \
+               self.card.__eq__(other.build_card)
+
+    def __str__(self):
+        return "PokemonCardInfo: [\n\tcount: {0},\n\tcard: {1}\n]".format(self.count, self.card.__str__())
