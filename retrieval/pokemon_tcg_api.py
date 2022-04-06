@@ -25,7 +25,7 @@ def handle_request_limit_check():
 
 def get_card_from_database(pokemon_set: PokemonSet, number_or_id: int or str) -> IndexCard:
     search_str = "{0}-{1}".format(pokemon_set.set_code, str(number_or_id))
-    # Temp Fix for SWSH Promo build_card search
+    # Temp Fix for SWSH Promo card search
     if pokemon_set.set_code == 'swshp':
         num_as_str = str(number_or_id)
         while num_as_str.__len__() < 3:

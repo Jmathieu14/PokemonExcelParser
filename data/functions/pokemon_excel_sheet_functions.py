@@ -20,7 +20,7 @@ def _insert_or_update_sheet_with_index_cards(pokemon_set_sheet: PokemonSetSheet,
         pokemon_set_sheet.update_card_name_with_card_number(index_card.get_name(), card_index)
         pokemon_set_sheet.update_rarity_with_card_number(index_card.get_rarity(), card_index)
         pokemon_set_sheet.update_cell_with_card_number_and_column_name(index_card.get_first_type(), card_index, 'Type')
-        print('Added build_card to set sheet: ' + index_card.__str__())
+        print('Added card to set sheet: ' + index_card.__str__())
 
 
 def update_missing_pokemon_metadata(pokemon_set_sheet: PokemonSetSheet):
