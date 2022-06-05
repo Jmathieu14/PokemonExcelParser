@@ -1,0 +1,30 @@
+Pokemon - 19
+1 Galarian Zigzagoon SSH 117
+3 Drizzile SSH 56
+1 Crobat V DAA 104
+4 Sobble CRE 41
+2 Inteleon CRE 43
+2 Crabominable V FST 76
+3 Kingler V BRS 28
+2 Kingler VMAX BRS 29
+1 Lumineon V BRS 40
+Trainer - 32
+1 Evolution Incense SSH 163
+2 Marnie SSH 169
+1 Ordinary Rod SSH 171
+1 Pal Pad SSH 172
+2 Professor's Research (Professor Magnolia) SSH 178
+3 Quick Ball SSH 179
+2 Switch SSH 183
+2 Boss's Orders RCL 154
+3 Scoop Up Net RCL 165
+2 Cape of Toughness DAA 160
+2 Fan of Waves BST 127
+4 Level Ball BST 129
+1 Agatha CRE 129
+1 Melony CRE 146
+2 Path to the Peak CRE 148
+1 Adventurer's Discovery FST 224
+2 Ultra Ball BRS 150
+Energy - 9
+9 Water Energy 3

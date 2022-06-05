@@ -13,4 +13,6 @@ class PokemonDeckItem:
             return False
         return self.item == other.item and \
                self.count == other.count
-        
+
+    def __str__(self):
+        return "PokemonDeckItem: [ item: {0}, count: {1} ]".format(self.item, self.count)

@@ -2,6 +2,7 @@ import shutil
 import sys
 
 from data.functions.pokemon_deck_buildable import is_pokemon_deck_buildable
+from data.functions.pokemon_deck_functions import decklist_file_to_decklist
 from data.functions.pokemon_excel_sheet_functions import update_missing_pokemon_metadata, insert_complete_set_metadata, \
     add_conditional_formatting_from_config
 from data.functions.pokemon_set_list_functions import get_sets, find_set_in_sets
@@ -57,6 +58,8 @@ def main(argv):
         print("- SET_INFO <set> - get information for specified set using pokemontcgsdk 'set_code'")
         print("- APPLY_FORMATTING - applies formatting to sets specified in main.py")
         print("- DEV <command> - runs a dev command to test it's functionality")
+        print("- PARSE_DECK <file> - Parse and print the resulting cards in a given decklist file")
+        print("- IS_DECK_BUILDABLE <file> - Parse a decklist file and print if it is buildable")
         print("- HELP, H - bring up the help menu\n")
     elif caps_argv.__contains__("DEV") and caps_argv.__contains__("IS_DECK_BUILDABLE"):
         if caps_argv.__len__() <= 2:
@@ -89,6 +92,19 @@ def main(argv):
     elif caps_argv.__contains__("SETS"):
         sets_availabe = ['ASR', 'ASRTG', 'SSH', 'CPA', 'DAA', 'VIV', 'CRE', 'EVS', 'BST', 'CEL', 'PR-SW', 'SHF', 'SHFSV', 'FST', 'BRS']
         print(sets_availabe)
+    elif caps_argv.__contains__("PARSE_DECK"):
+        decklist_filepath = argv[1]
+        decklist_object = decklist_file_to_decklist(decklist_filepath)
+        decklist_as_string = ''
+        for i in range(0, decklist_object.__len__()):
+            if i != 0:
+                decklist_as_string += ', '
+            decklist_as_string += '\n' + decklist_object[i].__str__()
+        print(decklist_as_string)
+    elif caps_argv.__contains__("IS_DECK_BUILDABLE"):
+        deck_file_path = argv[1]
+        print(deck_file_path)
+        is_pokemon_deck_buildable(deck_file_path, get_excel_file_path())
     else:
         sets_to_update = caps_argv
         print("\nUpdating the following set(s): ")
