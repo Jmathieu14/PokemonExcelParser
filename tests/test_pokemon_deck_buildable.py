@@ -11,6 +11,15 @@ from data.models.pokemon_deck_item_model import PokemonDeckItem
 from data.models.pokemon_deck_summary_model import PokemonDeckSummary
 from data.models.pokemon_set_model import PokemonSet
 
+
+class MockSetSheet:
+    def __init__(self):
+        pass
+
+    def get_cards_with_name(self, name):
+        return name
+
+
 deck_line_one = "1 Air Balloon SSH 156"
 swsh1 = PokemonSet("SSH", "Sword & Shield", "Sword & Shield", "swsh1")
 deck_line_multiple_cards = "2 Zacian V CEL 16"
@@ -37,6 +46,8 @@ mock_deck_list = [
     air_balloon_deck_item
 ]
 
+mock_poke_set = PokemonSet('CEL', 'Celebrations', 'Sword & Shield', 'cel25')
+
 
 class TestPokemonDeckBuildable(unittest.TestCase):
     @mock.patch('data.functions.pokemon_deck_buildable.decklist_file_to_decklist')
@@ -53,8 +64,12 @@ class TestPokemonDeckBuildable(unittest.TestCase):
 
     @mock.patch('data.functions.pokemon_deck_buildable.find_set_in_sets')
     @mock.patch('data.functions.pokemon_deck_buildable.decklist_file_to_decklist')
-    def test_is_deck_buildable__calls_find_set_in_sets(self, mock_decklist_file_to_decklist, mock_find_set_in_sets):
+    @mock.patch('data.models.pokemon_excel_sheet_model.PokemonSetSheet.create')
+    def test_is_deck_buildable__calls_find_set_in_sets(self, mock_create, mock_decklist_file_to_decklist,
+                                                       mock_find_set_in_sets):
         mock_decklist_file_to_decklist.return_value = mock_deck_list
+        mock_find_set_in_sets.return_value = mock_poke_set
+        mock_create.return_value = MockSetSheet()
         is_pokemon_deck_buildable("my_mock_path", "mock.excel.path")
         expected_calls = [
             mock.call("CEL", mock.ANY),
@@ -72,4 +87,3 @@ def main():
 
 if __name__ == '__main__':
     unittest.main()
-
