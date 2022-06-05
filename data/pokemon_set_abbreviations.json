@@ -94,6 +94,20 @@
     "series": "Sword & Shield"
   },
   {
+    "set_code": "swsh10",
+    "total": "216",
+    "name": "Astral Radiance",
+    "abbreviation": "ASR",
+    "series": "Sword & Shield"
+  },
+  {
+    "set_code": "swsh10tg",
+    "total": "30",
+    "name": "Astral Radiance Trainer Gallery",
+    "abbreviation": "ASRTG",
+    "series": "Sword & Shield"
+  },
+  {
     "set_code": "swshp",
     "total": "103",
     "name": "SWSH Black Star Promos",
