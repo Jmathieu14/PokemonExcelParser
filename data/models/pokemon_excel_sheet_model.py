@@ -20,8 +20,6 @@ class PokemonSetSheet:
         self.excel_sheet: worksheet = excel_sheet
         self.file_path = file_path
         self.column_config = get_poke_columns_config()
-        print("Column config has %i columns and spreadsheet with name %s has %i columns" %
-              (self.column_config.__len__(), self.pokemon_set.abbreviation, self.excel_sheet.max_column))
         self.__column_offset__ = self.column_config.__len__() + self.excel_sheet.max_column
         self.configure_columns()
 
