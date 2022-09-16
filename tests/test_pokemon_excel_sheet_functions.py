@@ -6,7 +6,7 @@ from unittest import mock
 from data.functions.pokemon_excel_sheet_functions import update_missing_pokemon_metadata, insert_complete_set_metadata
 from data.models import pokemon_excel_sheet_model
 from data.models.pokemon_column_model import PokeColumn
-from data.models.pokemon_excel_sheet_model import PokemonSetSheet, get_poke_columns_config
+from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from retrieval.models.index_cards_model import IndexCards
 from tests.util.test_utilities import get_pokemon_test_set, excel_copy_path, index_card, \
     assert_values_match_those_in_column, assert_not_called_with

@@ -6,6 +6,7 @@ from data.functions.pokemon_deck_functions import decklist_file_to_decklist
 from data.functions.pokemon_excel_sheet_functions import update_missing_pokemon_metadata, insert_complete_set_metadata, \
     add_conditional_formatting_from_config
 from data.functions.pokemon_set_list_functions import get_sets, find_set_in_sets
+from data.functions.set_pokemon_set_abbreviations_file import add_set_info_to_abbreviations_file
 from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from data.models.pokemon_set_model import create_dummy_set_from_set_code
 from retrieval.pokemon_tcg_api import get_set_info
@@ -71,6 +72,8 @@ def main(argv):
     elif caps_argv.__contains__("SET_INFO"):
         my_set = create_dummy_set_from_set_code(str(argv[1]).lower())
         tcg_api_response = get_set_info(my_set)
+        if caps_argv.__len__() > 2 and 'ADD' in caps_argv[2]:
+            add_set_info_to_abbreviations_file(tcg_api_response)
         print(tcg_api_response)
     elif caps_argv.__contains__("APPLY_FORMATTING"):
         print("TODO: keep log of sheets with conditional formatting already applied to avoid appending duplicate rules")

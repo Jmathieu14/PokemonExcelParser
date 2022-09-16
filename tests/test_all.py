@@ -6,7 +6,8 @@ from tests import \
     test_pokemon_tcg_api,\
     test_pokemon_excel_sheet_functions,\
     test_pokemon_deck,\
-    test_pokemon_deck_buildable
+    test_pokemon_deck_buildable,\
+    test_set_pokemon_set_abbreviations_file
 
 
 def main():
@@ -15,6 +16,7 @@ def main():
     test_pokemon_excel_sheet_functions.main()
     test_pokemon_deck.main()
     test_pokemon_deck_buildable.main()
+    test_set_pokemon_set_abbreviations_file.main()
 
 
 if __name__ == '__main__':
