@@ -18,10 +18,12 @@ TEST_POKEMON_SET_ABBREVIATIONS_JSON_PATH = 'tests/data/test_set_abbreviations_fu
 
 
 class TestSetPokemonSetAbbreviationsFile(unittest.TestCase):
+    @mock.patch('utility.json_object_to_file')
     @mock.patch('builtins.print')
     @mock.patch('data.functions.pokemon_set_list_functions.get_sets')
     @mock.patch('data.functions.pokemon_set_list_functions.find_set_in_sets')
-    def test_add_set_info_should_print_error_message(self, mock_find_set_in_sets, mock_get_sets, mock_print):
+    def test_add_set_info_should_print_error_message(self, mock_find_set_in_sets, mock_get_sets, mock_print, mock_save_json_object):
+        mock_save_json_object.return_value = None
         mock_get_sets.return_value = []
         mock_find_set_in_sets.return_value = PokemonSet(
             DUMMY_SET.ptcgoCode, DUMMY_SET.name, DUMMY_SET.series, DUMMY_SET.id)
@@ -29,10 +31,12 @@ class TestSetPokemonSetAbbreviationsFile(unittest.TestCase):
         expectedLog = 'Set %s already in pokemon_set_abbreviations.json' % DUMMY_INFO_RESPONSE.ptcgoCode
         assert mock_print.called_once_with(expectedLog)
 
+    @mock.patch('utility.json_object_to_file')
     @mock.patch('builtins.print')
     @mock.patch('data.functions.pokemon_set_list_functions.get_sets')
     @mock.patch('data.functions.pokemon_set_list_functions.find_set_in_sets')
-    def test_add_set_info_should_print_adding_set_message(self, mock_find_set_in_sets, mock_get_sets, mock_print):
+    def test_add_set_info_should_print_adding_set_message(self, mock_find_set_in_sets, mock_get_sets, mock_print, mock_save_json_object):
+        mock_save_json_object.return_value = None
         mock_get_sets.return_value = []
         mock_find_set_in_sets.return_value = None
         add_set_info_to_abbreviations_file(DUMMY_INFO_RESPONSE)
