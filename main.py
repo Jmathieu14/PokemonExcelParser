@@ -50,7 +50,10 @@ def update_excel_sheets(set_abbreviations: [], get_complete_set_info=False):
 def main(argv):
     caps_argv = []
     for i in range(0, argv.__len__()):
-        caps_argv.append(argv[i].upper())
+        if argv[i][0] == "-":
+            caps_argv.append(argv[i].upper().replace("-", ""))
+        else:
+            caps_argv.append(argv[i].upper())
     if caps_argv.__contains__("HELP") or caps_argv.__contains__("H") or caps_argv.__len__() == 0:
         print("\nCommand Format: `python main.py <OPTIONS>`\n")
         print("Options:\n")
@@ -79,7 +82,7 @@ def main(argv):
         print(tcg_api_response)
     elif caps_argv.__contains__("APPLY_FORMATTING"):
         print("TODO: keep log of sheets with conditional formatting already applied to avoid appending duplicate rules")
-        # Temp log of sets with existing formatting: FLI - FST
+        # Temp log of sets with existing formatting: FLI - CRZGG
         excel_file_path = get_excel_file_path()
         shutil.copy2(excel_file_path, backup_excel_sheet_filename(excel_file_path))
         sets_to_update = []

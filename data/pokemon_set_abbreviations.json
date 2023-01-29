@@ -175,4 +175,16 @@
     "name": "Silver Tempest Trainer Gallery",
     "abbreviation": "SITTG",
     "series": "Sword & Shield"
+}, {
+    "set_code": "swsh12pt5",
+    "total": "160",
+    "name": "Crown Zenith",
+    "abbreviation": "CRZ",
+    "series": "Sword & Shield"
+}, {
+    "set_code": "swsh12pt5gg",
+    "total": "70",
+    "name": "Crown Zenith Galarian Gallery",
+    "abbreviation": "CRZGG",
+    "series": "Sword & Shield"
 }]
