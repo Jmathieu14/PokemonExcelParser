@@ -80,6 +80,12 @@
     "abbreviation": "BRS",
     "series": "Sword & Shield"
 }, {
+    "set_code": "swsh9tg",
+    "total": "30",
+    "name": "Brilliant Stars Trainer Gallery",
+    "abbreviation": "BRSTG",
+    "series": "Sword & Shield"
+}, {
     "set_code": "swsh10",
     "total": "216",
     "name": "Astral Radiance",
@@ -187,4 +193,10 @@
     "name": "Crown Zenith Galarian Gallery",
     "abbreviation": "CRZGG",
     "series": "Sword & Shield"
+}, {
+    "set_code": "sv1",
+    "total": "258",
+    "name": "Scarlet & Violet",
+    "abbreviation": "SV1",
+    "series": "Scarlet & Violet"
 }]
