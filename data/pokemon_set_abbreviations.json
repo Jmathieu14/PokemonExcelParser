@@ -231,7 +231,7 @@
         "set_code": "svp",
         "total": "14",
         "name": "Scarlet & Violet Black Star Promos",
-        "abbreviation": "None",
+        "abbreviation": "SVP",
         "series": "Scarlet & Violet"
     },
     {
@@ -245,7 +245,7 @@
         "set_code": "sv2",
         "total": "279",
         "name": "Paldea Evolved",
-        "abbreviation": "None",
+        "abbreviation": "PAL",
         "series": "Scarlet & Violet"
     }
 ]
