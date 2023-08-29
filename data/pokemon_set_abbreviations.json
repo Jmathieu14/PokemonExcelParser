@@ -247,5 +247,12 @@
         "name": "Paldea Evolved",
         "abbreviation": "PAL",
         "series": "Scarlet & Violet"
+    },
+    {
+        "set_code": "sv3",
+        "total": "230",
+        "name": "Obsidian Flames",
+        "abbreviation": "OBF",
+        "series": "Scarlet & Violet"
     }
 ]
