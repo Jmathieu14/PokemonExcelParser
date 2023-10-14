@@ -10,6 +10,7 @@ from data.functions.set_pokemon_set_abbreviations_file import add_set_info_to_ab
 from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from data.models.pokemon_set_model import create_dummy_set_from_set_code
 from retrieval.pokemon_tcg_api import get_set_info
+from retrieval.auth import init_api_auth
 from utility import backup_excel_sheet_filename, remove_backup, file_exists
 
 ALL_SETS = get_sets()
@@ -76,6 +77,7 @@ def main(argv):
             is_pokemon_deck_buildable(deck_file_path, get_excel_file_path())
     elif caps_argv.__contains__("SET_INFO"):
         my_set = create_dummy_set_from_set_code(str(argv[1]).lower())
+        init_api_auth()
         tcg_api_response = get_set_info(my_set)
         if caps_argv.__len__() > 2 and 'ADD' in caps_argv[2]:
             add_set_info_to_abbreviations_file(tcg_api_response)
@@ -84,21 +86,26 @@ def main(argv):
         print("TODO: keep log of sheets with conditional formatting already applied to avoid appending duplicate rules")
         # Temp log of sets with existing formatting: FLI - CRZGG
         excel_file_path = get_excel_file_path()
-        shutil.copy2(excel_file_path, backup_excel_sheet_filename(excel_file_path))
+        shutil.copy2(excel_file_path,
+                     backup_excel_sheet_filename(excel_file_path))
         sets_to_update = []
+        init_api_auth()
         for i in range(0, sets_to_update.__len__()):
             my_set = find_set_in_sets(sets_to_update[i], ALL_SETS)
             print('Found set %s' % sets_to_update[i])
             my_set.print()
-            print('Creating PokemonSetSheet with %s at the path: %s' % (sets_to_update[i], excel_file_path))
-            my_pokemon_set_sheet = PokemonSetSheet.create(my_set, excel_file_path)
+            print('Creating PokemonSetSheet with %s at the path: %s' %
+                  (sets_to_update[i], excel_file_path))
+            my_pokemon_set_sheet = PokemonSetSheet.create(
+                my_set, excel_file_path)
             print('Adding config...')
             add_conditional_formatting_from_config(my_pokemon_set_sheet)
             print('Saving changes...')
             my_pokemon_set_sheet.save()
             print('Conditional Formatting Applied to: %s' % sets_to_update[i])
     elif caps_argv.__contains__("SETS"):
-        sets_availabe = ['ASR', 'ASRTG', 'SSH', 'CPA', 'DAA', 'VIV', 'CRE', 'EVS', 'BST', 'CEL', 'PR-SW', 'SHF', 'SHFSV', 'FST', 'BRS']
+        sets_availabe = ['ASR', 'ASRTG', 'CRE', 'EVS', 'BST', 'CEL', 'PR-SW',
+                         'SHF', 'SHFSV', 'FST', 'BRS', 'LOR', 'SVP', 'SV1', 'PAL', 'OBF', 'MEW']
         print(sets_availabe)
     elif caps_argv.__contains__("PARSE_DECK"):
         decklist_filepath = argv[1]

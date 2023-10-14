@@ -254,5 +254,12 @@
         "name": "Obsidian Flames",
         "abbreviation": "OBF",
         "series": "Scarlet & Violet"
+    },
+    {
+        "set_code": "sv3pt5",
+        "total": "207",
+        "name": "151",
+        "abbreviation": "MEW",
+        "series": "Scarlet & Violet"
     }
 ]
