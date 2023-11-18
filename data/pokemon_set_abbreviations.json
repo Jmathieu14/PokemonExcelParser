@@ -261,5 +261,12 @@
         "name": "151",
         "abbreviation": "MEW",
         "series": "Scarlet & Violet"
+    },
+    {
+        "set_code": "sv4",
+        "total": "266",
+        "name": "Paradox Rift",
+        "abbreviation": "PAR",
+        "series": "Scarlet & Violet"
     }
 ]
