@@ -10,7 +10,7 @@ from retrieval.models.index_cards_model import IndexCards
 from retrieval.models.pokemon_set_info_response import PokemonSetInfoResponse
 
 
-MAX_REQUESTS_PER_MINUTE = 1000
+MAX_REQUESTS_PER_MINUTE = 100
 CURRENT_REQUESTS_IN_MINUTE = 0
 
 
