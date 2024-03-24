@@ -268,5 +268,19 @@
         "name": "Paradox Rift",
         "abbreviation": "PAR",
         "series": "Scarlet & Violet"
+    },
+    {
+        "set_code": "sv4pt5",
+        "total": "245",
+        "name": "Paldean Fates",
+        "abbreviation": "PAF",
+        "series": "Scarlet & Violet"
+    },
+    {
+        "set_code": "sv5",
+        "total": "218",
+        "name": "Temporal Forces",
+        "abbreviation": "TEF",
+        "series": "Scarlet & Violet"
     }
 ]
