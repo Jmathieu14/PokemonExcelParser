@@ -282,5 +282,12 @@
         "name": "Temporal Forces",
         "abbreviation": "TEF",
         "series": "Scarlet & Violet"
+    },
+    {
+        "set_code": "sv6",
+        "total": "226",
+        "name": "Twilight Masquerade",
+        "abbreviation": "TWM",
+        "series": "Scarlet & Violet"
     }
 ]
