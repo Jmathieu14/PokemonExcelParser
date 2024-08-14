@@ -3,6 +3,7 @@
     "abbreviation": "TEST_SET",
     "name":  "Test Set",
     "series": "The Test Series!",
-    "set_code": "test1"
+    "set_code": "test1",
+    "standard_legal": "False"
   }
 ]

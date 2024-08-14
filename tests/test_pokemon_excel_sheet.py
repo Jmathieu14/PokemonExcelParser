@@ -26,7 +26,7 @@ class TestPokemonSetSheet(unittest.TestCase):
 
     @mock.patch(get_excel_sheet_import)
     def test_create_should_call_get_excel_workbook_from_file(self, mock_get_excel_workbook_from_file):
-        PokemonSetSheet.create(PokemonSet(None, None, None, None), None)
+        PokemonSetSheet.create(PokemonSet(None, None, None, None, False), None)
         assert mock_get_excel_workbook_from_file.called
 
     def test_should_have_correct_poke_columns(self):

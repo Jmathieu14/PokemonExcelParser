@@ -1,8 +1,6 @@
 # Author: Jacques
 # Date: 06/07/2020
 # Time: 10:45 PM
-from pokemontcgsdk import Card, Set
-
 from data.models.pokemon_card_model import SimplerCard
 from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from data.models.pokemon_set_model import PokemonSet
@@ -21,6 +19,7 @@ class MockSet:
     releaseDate: str
     series: str
     total: int
+    legalities: any
 
     def __init__(self, id_str, total: int, name, ptcgo_code, release_date, series):
         self.id = id_str
@@ -29,9 +28,23 @@ class MockSet:
         self.ptcgoCode = ptcgo_code
         self.releaseDate = release_date
         self.series = series
+        self.legalities = {
+            "unlimited": "Legal"
+        }
 
 
-def makeDummySet(total_cards: int):
+    def __str__(self):
+        return "{{ 'id': '{0}'," \
+            "'total': '{1}'," \
+            "'name': '{2}'," \
+            "'ptcgoCode': '{3}'," \
+            "'releaseDate': '{4}'," \
+            "'series': '{5}'," \
+            "'legalities': '{6}' }}" \
+            .format(self.id, self.total, self.name, self.ptcgoCode, self.releaseDate, self.series, self.legalities)
+
+
+def makeDummySet(total_cards: int) -> MockSet:
     return MockSet('dummy', total_cards, 'dummy', 'dummy', 'dummy', 'dummy')
 
 

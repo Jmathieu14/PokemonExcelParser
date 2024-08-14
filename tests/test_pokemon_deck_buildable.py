@@ -21,9 +21,9 @@ class MockSetSheet:
 
 
 deck_line_one = "1 Air Balloon SSH 156"
-swsh1 = PokemonSet("SSH", "Sword & Shield", "Sword & Shield", "swsh1")
+swsh1 = PokemonSet("SSH", "Sword & Shield", "Sword & Shield", "swsh1", False)
 deck_line_multiple_cards = "2 Zacian V CEL 16"
-cel25 = PokemonSet("CEL", "Celebrations", "Sword & Shield", "cel25")
+cel25 = PokemonSet("CEL", "Celebrations", "Sword & Shield", "cel25", False)
 air_balloon = PokemonCard.builder() \
     .name("Air Balloon") \
     .build_index(156) \
@@ -46,7 +46,7 @@ mock_deck_list = [
     air_balloon_deck_item
 ]
 
-mock_poke_set = PokemonSet('CEL', 'Celebrations', 'Sword & Shield', 'cel25')
+mock_poke_set = PokemonSet('CEL', 'Celebrations', 'Sword & Shield', 'cel25', False)
 
 
 class TestPokemonDeckBuildable(unittest.TestCase):

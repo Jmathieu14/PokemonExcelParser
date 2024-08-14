@@ -11,9 +11,9 @@ from data.models.pokemon_deck_summary_model import PokemonDeckSummary
 from data.models.pokemon_set_model import PokemonSet
 
 deck_line_one = "1 Air Balloon SSH 156"
-swsh1 = PokemonSet("SSH", "Sword & Shield", "Sword & Shield", "swsh1")
+swsh1 = PokemonSet("SSH", "Sword & Shield", "Sword & Shield", "swsh1", False)
 deck_line_multiple_cards = "2 Zacian V CEL 16"
-cel25 = PokemonSet("CEL", "Celebrations", "Sword & Shield", "cel25")
+cel25 = PokemonSet("CEL", "Celebrations", "Sword & Shield", "cel25", False)
 air_balloon = PokemonCard.builder() \
     .name("Air Balloon") \
     .build_index(156) \

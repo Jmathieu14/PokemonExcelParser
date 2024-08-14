@@ -33,8 +33,7 @@ class TestPokemonTcgApi(unittest.TestCase):
 
     @mock.patch('pokemontcgsdk.Set.find')
     def test_get_set_info__should_call_set_find(self, mock_set_find):
-        mock_return_value = PokemonSetInfoResponse(makeDummySet(1))
-        print('put mock set in set info response object')
+        mock_return_value = makeDummySet(1)
         mock_set_find.return_value = mock_return_value
         get_set_info(get_pokemon_test_set())
         mock_set_find.assert_called_with(get_pokemon_test_set().set_code)

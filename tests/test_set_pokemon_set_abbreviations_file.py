@@ -26,7 +26,7 @@ class TestSetPokemonSetAbbreviationsFile(unittest.TestCase):
         mock_save_json_object.return_value = None
         mock_get_sets.return_value = []
         mock_find_set_in_sets.return_value = PokemonSet(
-            DUMMY_SET.ptcgoCode, DUMMY_SET.name, DUMMY_SET.series, DUMMY_SET.id)
+            DUMMY_SET.ptcgoCode, DUMMY_SET.name, DUMMY_SET.series, DUMMY_SET.id, False)
         add_set_info_to_abbreviations_file(DUMMY_INFO_RESPONSE)
         expectedLog = 'Set %s already in pokemon_set_abbreviations.json' % DUMMY_INFO_RESPONSE.ptcgoCode
         assert mock_print.called_once_with(expectedLog)

@@ -2,6 +2,7 @@
 # Date: 05/30/2020
 # Time: 6:06 PM
 import time
+from typing import List
 
 from pokemontcgsdk import Card, Set
 from data.models.pokemon_set_model import PokemonSet
@@ -37,7 +38,7 @@ def get_card_from_database(pokemon_set: PokemonSet, number_or_id: int or str) ->
     return IndexCard(number_or_id, Card.find(search_str))
 
 
-def get_cards_from_database(pokemon_set: PokemonSet, numbers: [int or str], search_above_total: bool = True) -> IndexCards:
+def get_cards_from_database(pokemon_set: PokemonSet, numbers: List[int or str], search_above_total: bool = True) -> IndexCards:
     index_cards = IndexCards()
     set_card_count = get_set_card_count(pokemon_set)
     for index in range(0, numbers.__len__()):
@@ -46,7 +47,7 @@ def get_cards_from_database(pokemon_set: PokemonSet, numbers: [int or str], sear
     return index_cards
 
 
-def get_cards_not_in_list(pokemon_set: PokemonSet, numbers: [int]) -> IndexCards:
+def get_cards_not_in_list(pokemon_set: PokemonSet, numbers: List[int]) -> IndexCards:
     last_card_number = get_set_card_count(pokemon_set)
     card_numbers_not_in_list = []
     for x in range(1, last_card_number + 1):
@@ -60,6 +61,14 @@ def get_set_info(pokemon_set: PokemonSet) -> PokemonSetInfoResponse:
     found_set: Set = Set.find(pokemon_set.set_code)
     info = PokemonSetInfoResponse(found_set)
     return info
+
+
+def get_latest_standard_sets() -> List[PokemonSetInfoResponse]:
+    latest_sets: List[Set] = Set.where(q='legalities.standard:legal')
+    parsed_latest_sets: List[PokemonSetInfoResponse] = []
+    for set in latest_sets:
+        parsed_latest_sets.append(PokemonSetInfoResponse(set))
+    return parsed_latest_sets
 
 
 def get_set_card_count(pokemon_set: PokemonSet) -> int:

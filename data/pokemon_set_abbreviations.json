@@ -3,291 +3,381 @@
         "abbreviation": "SSH",
         "name": "Sword & Shield",
         "series": "Sword & Shield",
-        "set_code": "swsh1"
+        "set_code": "swsh1",
+        "standard_legal": "False"
     },
     {
         "abbreviation": "RCL",
         "name": "Rebel Clash",
         "series": "Sword & Shield",
-        "set_code": "swsh2"
+        "set_code": "swsh2",
+        "standard_legal": "False"
     },
     {
         "abbreviation": "DAA",
         "name": "Darkness Ablaze",
         "series": "Sword & Shield",
-        "set_code": "swsh3"
+        "set_code": "swsh3",
+        "standard_legal": "False"
     },
     {
         "set_code": "swsh35",
         "total_cards": "73",
         "name": "Champion's Path",
         "abbreviation": "CPA",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "False"
     },
     {
         "set_code": "swsh4",
         "total_cards": "185",
         "name": "Vivid Voltage",
         "abbreviation": "VIV",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "False"
     },
     {
         "set_code": "swsh45",
         "total": "73",
         "name": "Shining Fates",
         "abbreviation": "SHF",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "False"
     },
     {
         "set_code": "swsh45sv",
         "total": "122",
         "name": "Shiny Vault",
         "abbreviation": "SHFSV",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "False"
     },
     {
         "set_code": "swsh5",
         "total": "183",
         "name": "Battle Styles",
         "abbreviation": "BST",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "False"
     },
     {
         "set_code": "swsh6",
         "total": "233",
         "name": "Chilling Reign",
         "abbreviation": "CRE",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "False"
     },
     {
         "set_code": "swsh7",
         "total": "237",
         "name": "Evolving Skies",
         "abbreviation": "EVS",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "False"
     },
     {
         "set_code": "cel25",
         "total": "25",
         "name": "Celebrations",
         "abbreviation": "CEL",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "False"
     },
     {
         "set_code": "cel25c",
         "total": "25",
         "name": "Celebrations: Classic Collection",
         "abbreviation": "CELC",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "False"
     },
     {
         "set_code": "swsh8",
         "total": "284",
         "name": "Fusion Strike",
         "abbreviation": "FST",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "False"
     },
     {
         "set_code": "swsh9",
         "total": "186",
         "name": "Brilliant Stars",
         "abbreviation": "BRS",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "True"
     },
     {
         "set_code": "swsh9tg",
         "total": "30",
         "name": "Brilliant Stars Trainer Gallery",
         "abbreviation": "BRSTG",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "True"
     },
     {
         "set_code": "swsh10",
         "total": "216",
         "name": "Astral Radiance",
         "abbreviation": "ASR",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "True"
     },
     {
         "set_code": "swsh10tg",
         "total": "30",
         "name": "Astral Radiance Trainer Gallery",
         "abbreviation": "ASRTG",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "True"
     },
     {
         "set_code": "pgo",
         "total": "88",
         "name": "Pok\u00c3\u00a9mon GO",
         "abbreviation": "PGO",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "True"
     },
     {
         "set_code": "swshp",
         "total": "103",
         "name": "SWSH Black Star Promos",
         "abbreviation": "PR-SW",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "False"
     },
     {
         "set_code": "sm5",
         "total_cards": "156",
         "name": "Ultra Prism",
         "abbreviation": "UPR",
-        "series": "Sun & Moon"
+        "series": "Sun & Moon",
+        "standard_legal": "False"
     },
     {
         "set_code": "sm6",
         "total_cards": "131",
         "name": "Forbidden Light",
         "abbreviation": "FLI",
-        "series": "Sun & Moon"
+        "series": "Sun & Moon",
+        "standard_legal": "False"
     },
     {
         "set_code": "sm7",
         "total_cards": "168",
         "name": "Celestial Storm",
         "abbreviation": "CES",
-        "series": "Sun & Moon"
+        "series": "Sun & Moon",
+        "standard_legal": "False"
     },
     {
         "set_code": "sm8",
         "total_cards": "214",
         "name": "Lost Thunder",
         "abbreviation": "LOT",
-        "series": "Sun & Moon"
+        "series": "Sun & Moon",
+        "standard_legal": "False"
     },
     {
         "set_code": "sm9",
         "total_cards": "181",
         "name": "Team Up",
         "abbreviation": "TEU",
-        "series": "Sun & Moon"
+        "series": "Sun & Moon",
+        "standard_legal": "False"
     },
     {
         "set_code": "sm10",
         "total_cards": "214",
         "name": "Unbroken Bonds",
         "abbreviation": "UNB",
-        "series": "Sun & Moon"
+        "series": "Sun & Moon",
+        "standard_legal": "False"
     },
     {
         "set_code": "sm11",
         "total_cards": "236",
         "name": "Unified Minds",
         "abbreviation": "UNM",
-        "series": "Sun & Moon"
+        "series": "Sun & Moon",
+        "standard_legal": "False"
     },
     {
         "set_code": "sm12",
         "total_cards": "236",
         "name": "Cosmic Eclipse",
         "abbreviation": "CEC",
-        "series": "Sun & Moon"
+        "series": "Sun & Moon",
+        "standard_legal": "False"
     },
     {
         "set_code": "swsh11",
         "total": "217",
         "name": "Lost Origin",
         "abbreviation": "LOR",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "True"
     },
     {
         "set_code": "swsh11tg",
         "total": "30",
         "name": "Lost Origin Trainer Gallery",
         "abbreviation": "LORTG",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "True"
     },
     {
         "set_code": "swsh12",
         "total": "215",
         "name": "Silver Tempest",
         "abbreviation": "SIT",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "True"
     },
     {
         "set_code": "swsh12tg",
         "total": "30",
         "name": "Silver Tempest Trainer Gallery",
         "abbreviation": "SITTG",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "True"
     },
     {
         "set_code": "swsh12pt5",
         "total": "160",
         "name": "Crown Zenith",
         "abbreviation": "CRZ",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "True"
     },
     {
         "set_code": "swsh12pt5gg",
         "total": "70",
         "name": "Crown Zenith Galarian Gallery",
         "abbreviation": "CRZGG",
-        "series": "Sword & Shield"
+        "series": "Sword & Shield",
+        "standard_legal": "True"
     },
     {
         "set_code": "svp",
         "total": "14",
         "name": "Scarlet & Violet Black Star Promos",
         "abbreviation": "SVP",
-        "series": "Scarlet & Violet"
+        "series": "Scarlet & Violet",
+        "standard_legal": "True"
     },
     {
         "set_code": "sv1",
         "total": "258",
         "name": "Scarlet & Violet",
         "abbreviation": "SV1",
-        "series": "Scarlet & Violet"
+        "series": "Scarlet & Violet",
+        "standard_legal": "True"
     },
     {
         "set_code": "sv2",
         "total": "279",
         "name": "Paldea Evolved",
         "abbreviation": "PAL",
-        "series": "Scarlet & Violet"
+        "series": "Scarlet & Violet",
+        "standard_legal": "True"
     },
     {
         "set_code": "sv3",
         "total": "230",
         "name": "Obsidian Flames",
         "abbreviation": "OBF",
-        "series": "Scarlet & Violet"
+        "series": "Scarlet & Violet",
+        "standard_legal": "True"
     },
     {
         "set_code": "sv3pt5",
         "total": "207",
         "name": "151",
         "abbreviation": "MEW",
-        "series": "Scarlet & Violet"
+        "series": "Scarlet & Violet",
+        "standard_legal": "True"
     },
     {
         "set_code": "sv4",
         "total": "266",
         "name": "Paradox Rift",
         "abbreviation": "PAR",
-        "series": "Scarlet & Violet"
+        "series": "Scarlet & Violet",
+        "standard_legal": "True"
     },
     {
         "set_code": "sv4pt5",
         "total": "245",
         "name": "Paldean Fates",
         "abbreviation": "PAF",
-        "series": "Scarlet & Violet"
+        "series": "Scarlet & Violet",
+        "standard_legal": "True"
     },
     {
         "set_code": "sv5",
         "total": "218",
         "name": "Temporal Forces",
         "abbreviation": "TEF",
-        "series": "Scarlet & Violet"
+        "series": "Scarlet & Violet",
+        "standard_legal": "True"
     },
     {
         "set_code": "sv6",
         "total": "226",
         "name": "Twilight Masquerade",
         "abbreviation": "TWM",
-        "series": "Scarlet & Violet"
+        "series": "Scarlet & Violet",
+        "standard_legal": "True"
+    },
+    {
+        "set_code": "sv6pt5",
+        "total": "99",
+        "name": "Shrouded Fable",
+        "abbreviation": "SFA",
+        "series": "Scarlet & Violet",
+        "standard_legal": "True"
+    },
+    {
+        "set_code": "fut20",
+        "total": "5",
+        "name": "Pok\u00e9mon Futsal Collection",
+        "abbreviation": "FUT20",
+        "series": "Other",
+        "standard_legal": "False"
+    },
+    {
+        "set_code": "mcd22",
+        "total": "15",
+        "name": "McDonald's Collection 2022",
+        "abbreviation": "MCD",
+        "series": "Other",
+        "standard_legal": "False"
+    },
+    {
+        "set_code": "sv1",
+        "total": "258",
+        "name": "Scarlet & Violet",
+        "abbreviation": "SVI",
+        "series": "Scarlet & Violet",
+        "standard_legal": "True"
+    },
+    {
+        "set_code": "svp",
+        "total": "129",
+        "name": "Scarlet & Violet Black Star Promos",
+        "abbreviation": "PR-SV",
+        "series": "Scarlet & Violet",
+        "standard_legal": "True"
+    },
+    {
+        "set_code": "sve",
+        "total": "8",
+        "name": "Scarlet & Violet Energies",
+        "abbreviation": "SVE",
+        "series": "Scarlet & Violet",
+        "standard_legal": "True"
     }
 ]
