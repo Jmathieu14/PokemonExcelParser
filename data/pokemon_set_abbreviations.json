@@ -379,5 +379,23 @@
         "abbreviation": "SVE",
         "series": "Scarlet & Violet",
         "standard_legal": "True"
+    },
+    {
+        "set_code": "sv7",
+        "total": "175",
+        "name": "Stellar Crown",
+        "abbreviation": "SCR",
+        "standard_legal": "True",
+        "release_date": "2024/09/13",
+        "series": "Scarlet & Violet"
+    },
+    {
+        "set_code": "sv8",
+        "total": "252",
+        "name": "Surging Sparks",
+        "abbreviation": "SSP",
+        "standard_legal": "True",
+        "release_date": "2024/11/08",
+        "series": "Scarlet & Violet"
     }
 ]
