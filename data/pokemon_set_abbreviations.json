@@ -397,5 +397,14 @@
         "standard_legal": "True",
         "release_date": "2024/11/08",
         "series": "Scarlet & Violet"
+    },
+    {
+        "set_code": "sv8pt5",
+        "total": "180",
+        "name": "Prismatic Evolutions",
+        "abbreviation": "PRE",
+        "standard_legal": "True",
+        "release_date": "2025/01/17",
+        "series": "Scarlet & Violet"
     }
 ]

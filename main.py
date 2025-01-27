@@ -5,7 +5,7 @@ from data.functions.pokemon_deck_buildable import is_pokemon_deck_buildable
 from data.functions.pokemon_deck_functions import decklist_file_to_decklist
 from data.functions.pokemon_excel_sheet_functions import update_missing_pokemon_metadata, insert_complete_set_metadata, \
     add_conditional_formatting_from_config
-from data.functions.pokemon_set_list_functions import get_sets, find_set_in_sets
+from data.functions.pokemon_set_list_functions import get_legal_sets, get_sets, find_set_in_sets, get_sets_as_abbr_list
 from data.functions.set_pokemon_set_abbreviations_file import add_set_info_to_abbreviations_file, add_sets_to_abbreviations_file
 from data.models.pokemon_excel_sheet_model import PokemonSetSheet
 from data.models.pokemon_set_model import create_dummy_set_from_set_code
@@ -108,17 +108,17 @@ def main(argv):
             print('Conditional Formatting Applied to: %s' % sets_to_update[i])
     elif caps_argv.__contains__("SETS"):
         init_api_auth()
-        if str(argv[1]).upper() == "--UPDATE":
+        if argv.__len__() == 1:
+            legal_sets = get_legal_sets(ALL_SETS)
+            sets_availabe = get_sets_as_abbr_list(legal_sets)
+            print(sets_availabe)
+        elif str(argv[1]).upper() == "--UPDATE":
             latest_sets = get_latest_standard_sets()
             add_sets_to_abbreviations_file(latest_sets)
         elif str(argv[1].upper() == "--LATEST"):
             latest_sets = get_latest_standard_sets()
             for set in latest_sets:
                 print(str(set))
-        else:
-            sets_availabe = ['ASR', 'ASRTG', 'CRE', 'EVS', 'BST', 'CEL', 'PR-SW',
-                            'SHF', 'SHFSV', 'FST', 'BRS', 'LOR', 'SVP', 'SV1', 'PAL', 'OBF', 'MEW']
-            print(sets_availabe)
     elif caps_argv.__contains__("PARSE_DECK"):
         decklist_filepath = argv[1]
         decklist_object = decklist_file_to_decklist(decklist_filepath)
